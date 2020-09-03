@@ -47,7 +47,7 @@ class _MyHomePageState extends State<MyHomePage> {
           children: <Widget>[
             ActionButton(
               action: () => Navigator.push(context, MaterialPageRoute(builder: (context) => HiddenMenuBottomBarFab())),
-              label: 'Hidden menu with fab in bottom bar',
+              label: 'Hidden menu with FAB in bottom bar',
             ),
           ],
         ),

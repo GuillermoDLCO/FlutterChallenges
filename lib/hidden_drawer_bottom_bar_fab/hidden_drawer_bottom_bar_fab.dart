@@ -84,10 +84,10 @@ class _HiddenMenuBottomBarFabState extends State<HiddenMenuBottomBarFab> with Si
                                     IndexedStack(
                                       index: currentIndex,
                                       children: [
-                                        _IndexedPages(backgroundColor: Colors.green, title: 'Page One'),
-                                        _IndexedPages(backgroundColor: Colors.blue, title: 'Page Two'),
-                                        _IndexedPages(backgroundColor: Colors.grey, title: 'Page Three'),
-                                        _IndexedPages(backgroundColor: Colors.brown, title: 'Page Four'),
+                                        _IndexedPages(backgroundColor: Colors.green, title: 'Page One', openDrawer: () => openMenuDrawer()),
+                                        _IndexedPages(backgroundColor: Colors.blue, title: 'Page Two', openDrawer: () => openMenuDrawer()),
+                                        _IndexedPages(backgroundColor: Colors.grey, title: 'Page Three', openDrawer: () => openMenuDrawer()),
+                                        _IndexedPages(backgroundColor: Colors.brown, title: 'Page Four', openDrawer: () => openMenuDrawer()),
                                       ],
                                     ),
                                     Positioned(bottom: 4.0, child: _FloatingActionButtonCustom()),
@@ -487,18 +487,20 @@ class _IndexedPages extends StatelessWidget {
     Key key,
     @required this.backgroundColor,
     @required this.title,
+    this.openDrawer,
   })  : assert(backgroundColor != null),
         assert(title != null),
         super(key: key);
   final Color backgroundColor;
   final String title;
+  final VoidCallback openDrawer;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size(double.infinity, 40.0),
-        child: _CustomAppBar(title: title),
+        child: _CustomAppBar(title: title, openDrawer: () => openDrawer()),
       ),
       backgroundColor: PalleteColor.backgroundColor,
       body: _BodyPage(),
@@ -510,9 +512,11 @@ class _CustomAppBar extends StatelessWidget {
   const _CustomAppBar({
     Key key,
     @required this.title,
+    this.openDrawer,
   })  : assert(title != null),
         super(key: key);
   final String title;
+  final VoidCallback openDrawer;
 
   @override
   Widget build(BuildContext context) {
@@ -530,7 +534,7 @@ class _CustomAppBar extends StatelessWidget {
           size: 25,
           color: PalleteColor.actionButtonColor,
         ),
-        onPressed: () {},
+        onPressed: () => openDrawer(),
       ),
       centerTitle: true,
       actions: <Widget>[
