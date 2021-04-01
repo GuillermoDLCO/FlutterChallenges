@@ -5,4 +5,4 @@
  
  |Hidden menu / bottom bar / Multi FAB| 
 |------------|
-|  <img src="https://media.giphy.com/media/kG2zdpuuM6tx9G5bQa/giphy.gif" width="250"> |
+|  <img src="https://media.giphy.com/media/nRwHMiwbyiRuGjP5Le/giphy.gif" width="250"> |
