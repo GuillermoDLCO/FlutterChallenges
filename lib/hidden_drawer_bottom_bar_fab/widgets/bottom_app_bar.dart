@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
 
 class BottomAppBarItem {
-  BottomAppBarItem({this.icon, this.text});
+  BottomAppBarItem(this.icon, this.text);
   IconData icon;
   String text;
 }
 
 class BottomAppBarCustom extends StatefulWidget {
   BottomAppBarCustom({
-    this.items,
-    this.height: 60.0,
-    this.iconSize: 24.0,
-    this.backgroundColor,
-    this.color,
-    this.selectedColor,
-    this.notchedShape,
-    this.onTabSelected,
+    required this.items,
+    this.height = 60.0,
+    this.iconSize = 24.0,
+    required this.backgroundColor,
+    required this.color,
+    required this.selectedColor,
+    required this.notchedShape,
+    required this.onTabSelected,
     this.selectedIndex = 0,
   }) {
     assert(this.items.length == 2 || this.items.length == 4);
@@ -66,8 +66,8 @@ class BottomAppBarCustomState extends State<BottomAppBarCustom> {
 
 class _MiddleTabItem extends StatelessWidget {
   const _MiddleTabItem({
-    Key key,
-    @required this.height,
+    Key? key,
+    required this.height,
   }) : super(key: key);
   final double height;
 
@@ -81,20 +81,14 @@ class _MiddleTabItem extends StatelessWidget {
 
 class TabItemBottomBar extends StatelessWidget {
   const TabItemBottomBar({
-    Key key,
-    @required this.item,
-    @required this.index,
-    @required this.onPressed,
-    @required this.color,
-    @required this.height,
-    @required this.iconSize,
-  })  : assert(item != null),
-        assert(index != null),
-        assert(onPressed != null),
-        assert(color != null),
-        assert(height != null),
-        assert(iconSize != null),
-        super(key: key);
+    Key? key,
+    required this.item,
+    required this.index,
+    required this.onPressed,
+    required this.color,
+    required this.height,
+    required this.iconSize,
+  }) : super(key: key);
 
   final BottomAppBarItem item;
   final int index;

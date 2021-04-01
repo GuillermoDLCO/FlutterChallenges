@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
-import 'package:flutterchallenges/hidden_drawer_bottom_bar_fab/multiple_fab.dart';
-import 'package:flutterchallenges/res/pallete_color.dart';
+import 'package:flutterchallenges/hidden_drawer_bottom_bar_fab/widgets/multiple_fab.dart';
+import 'package:flutterchallenges/theme/pallete_color.dart';
 
-import 'bottom_app_bar.dart';
+import 'widgets/bottom_app_bar.dart';
 
 class HiddenMenuBottomBarFab extends StatefulWidget {
   @override
@@ -11,10 +12,10 @@ class HiddenMenuBottomBarFab extends StatefulWidget {
 }
 
 class _HiddenMenuBottomBarFabState extends State<HiddenMenuBottomBarFab> with SingleTickerProviderStateMixin {
-  bool isCollapsed = true;
+  late AnimationController _controller;
+  late Animation<double> _scaleAnimation;
   final Duration duration = const Duration(milliseconds: 400);
-  AnimationController _controller;
-  Animation<double> _scaleAnimation;
+  bool isCollapsed = true;
   double xOffset = 0;
   int currentIndex = 0;
   double yOffset = 0;
@@ -23,9 +24,9 @@ class _HiddenMenuBottomBarFabState extends State<HiddenMenuBottomBarFab> with Si
 
   @override
   void initState() {
-    super.initState();
     _controller = AnimationController(vsync: this, duration: duration);
     _scaleAnimation = Tween<double>(begin: 1.0, end: 1.2).animate(_controller);
+    super.initState();
   }
 
   @override
@@ -38,6 +39,7 @@ class _HiddenMenuBottomBarFabState extends State<HiddenMenuBottomBarFab> with Si
   Widget build(BuildContext context) {
     double initial = 0;
     double distance = 0;
+
     return Container(
         color: isCollapsed ? Colors.white : PalleteColor.backgroundMenuDrawerColor,
         child: SafeArea(
@@ -147,7 +149,7 @@ class _HiddenMenuBottomBarFabState extends State<HiddenMenuBottomBarFab> with Si
 
 class _MenuDrawer extends StatelessWidget {
   const _MenuDrawer({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -156,124 +158,122 @@ class _MenuDrawer extends StatelessWidget {
       backgroundColor: PalleteColor.backgroundMenuDrawerColor,
       body: Container(
         width: MediaQuery.of(context).size.width * 0.6,
-        child: Padding(
-          padding: const EdgeInsets.only(left: 16.0),
-          child: Column(
-            children: <Widget>[
-              Expanded(
-                child: ListView(
-                  children: <Widget>[
-                    Column(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        const SizedBox(height: 50.0),
-                        Row(
-                          mainAxisSize: MainAxisSize.min,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
-                            Text("Sets", style: TextStyle(color: Colors.white, fontSize: 22)),
-                            SizedBox(width: MediaQuery.of(context).size.width * 0.3),
-                            Icon(Icons.details, color: Colors.white),
-                          ],
-                        ),
-                        SizedBox(height: 10),
-                        GestureDetector(
-                          onTap: () {},
-                          child: _OptionMenuDrawer(
-                            title: 'Initiatives',
-                            icon: Icon(
-                              Icons.check_box_outline_blank,
-                              size: 25,
-                              color: PalleteColor.actionButtonColor,
-                            ),
-                          ),
-                        ),
-                        GestureDetector(
-                            onTap: () {},
-                            child: _OptionMenuDrawer(
-                              title: 'Contacts',
-                              icon: Icon(
-                                Icons.people,
-                                size: 25,
-                                color: PalleteColor.actionButtonColor,
-                              ),
-                            )),
-                        _OptionMenuDrawer(title: 'Tokens'),
-                        GestureDetector(
-                          onTap: () {},
-                          child: _OptionMenuDrawer(
-                            title: 'My Credentials',
-                            icon: Icon(
-                              Icons.chrome_reader_mode,
-                              size: 25,
-                              color: PalleteColor.actionButtonColor,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-              Column(
+        padding: const EdgeInsets.only(left: 10.0, bottom: 5.0),
+        child: Column(
+          children: <Widget>[
+            Expanded(
+              child: ListView(
                 children: <Widget>[
-                  _OptionMenuDrawer(
-                    title: 'Invite',
-                    backgroundColorIcon: Colors.transparent,
-                    icon: Icon(
-                      Icons.person_add,
-                      size: 25,
-                      color: Colors.white,
-                    ),
-                  ),
-                  _OptionMenuDrawer(
-                    title: 'Messages',
-                    backgroundColorIcon: Colors.transparent,
-                    icon: Icon(
-                      Icons.textsms,
-                      size: 25,
-                      color: Colors.white,
-                    ),
-                  ),
-                  _OptionMenuDrawer(
-                    title: 'Points',
-                    backgroundColorIcon: Colors.transparent,
-                    icon: Icon(
-                      Icons.card_giftcard,
-                      size: 25,
-                      color: Colors.white,
-                    ),
-                  ),
-                  const SizedBox(height: 20.0),
-                  GestureDetector(
-                    onTap: () {},
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Row(
+                  Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      const SizedBox(height: 50.0),
+                      Row(
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
-                          CircleAvatar(radius: 20.0, child: Icon(Icons.account_circle)),
-                          Expanded(
-                            child: Padding(
-                              padding: const EdgeInsets.only(left: 8.0),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: <Widget>[
-                                  Text('GuillermoDLCO',
-                                      overflow: TextOverflow.ellipsis, style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 17.0)),
-                                  Text('Community', style: TextStyle(color: Colors.grey)),
-                                ],
-                              ),
-                            ),
-                          )
+                          Text("Sets", style: TextStyle(color: Colors.white, fontSize: 22)),
+                          SizedBox(width: MediaQuery.of(context).size.width * 0.3),
+                          Icon(Icons.arrow_drop_down_sharp, color: Colors.white),
                         ],
                       ),
-                    ),
-                  )
+                      SizedBox(height: 10),
+                      GestureDetector(
+                        onTap: () {},
+                        child: _OptionMenuDrawer(
+                          title: 'Navigation 1',
+                          icon: Icon(
+                            Icons.check_box_outline_blank,
+                            size: 25,
+                            color: PalleteColor.actionButtonColor,
+                          ),
+                        ),
+                      ),
+                      GestureDetector(
+                          onTap: () {},
+                          child: _OptionMenuDrawer(
+                            title: 'Navigation 2',
+                            icon: Icon(
+                              Icons.people,
+                              size: 25,
+                              color: PalleteColor.actionButtonColor,
+                            ),
+                          )),
+                      _OptionMenuDrawer(title: 'Navigation 3'),
+                      GestureDetector(
+                        onTap: () {},
+                        child: _OptionMenuDrawer(
+                          title: 'Navigation 4',
+                          icon: Icon(
+                            Icons.chrome_reader_mode,
+                            size: 25,
+                            color: PalleteColor.actionButtonColor,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ],
-              )
-            ],
-          ),
+              ),
+            ),
+            Column(
+              children: <Widget>[
+                _OptionMenuDrawer(
+                  title: 'Invite',
+                  backgroundColorIcon: Colors.transparent,
+                  icon: Icon(
+                    Icons.person_add,
+                    size: 25,
+                    color: Colors.white,
+                  ),
+                ),
+                _OptionMenuDrawer(
+                  title: 'Messages',
+                  backgroundColorIcon: Colors.transparent,
+                  icon: Icon(
+                    Icons.textsms,
+                    size: 25,
+                    color: Colors.white,
+                  ),
+                ),
+                _OptionMenuDrawer(
+                  title: 'Points',
+                  backgroundColorIcon: Colors.transparent,
+                  icon: Icon(
+                    Icons.card_giftcard,
+                    size: 25,
+                    color: Colors.white,
+                  ),
+                ),
+                const SizedBox(height: 20.0),
+                GestureDetector(
+                  onTap: () {},
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      children: <Widget>[
+                        CircleAvatar(radius: 20.0, child: Icon(Icons.account_circle)),
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 8.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                Text('GuillermoDLCO',
+                                    overflow: TextOverflow.ellipsis, style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 17.0)),
+                                Text('Community', style: TextStyle(color: Colors.grey)),
+                              ],
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                )
+              ],
+            )
+          ],
         ),
       ),
     );
@@ -282,14 +282,13 @@ class _MenuDrawer extends StatelessWidget {
 
 class _OptionMenuDrawer extends StatelessWidget {
   const _OptionMenuDrawer({
-    Key key,
-    @required this.title,
+    Key? key,
+    required this.title,
     this.icon,
     this.backgroundColorIcon = Colors.white,
-  })  : assert(title != null),
-        super(key: key);
+  }) : super(key: key);
   final String title;
-  final Widget icon;
+  final Widget? icon;
   final Color backgroundColorIcon;
 
   @override
@@ -320,12 +319,10 @@ typedef OnUpdateIndex = Function(int index);
 
 class _BottomBarCustom extends StatelessWidget {
   const _BottomBarCustom({
-    Key key,
-    @required this.currentIndex,
-    @required this.updateIndex,
-  })  : assert(currentIndex != null),
-        assert(updateIndex != null),
-        super(key: key);
+    Key? key,
+    required this.currentIndex,
+    required this.updateIndex,
+  }) : super(key: key);
 
   final int currentIndex;
   final OnUpdateIndex updateIndex;
@@ -389,22 +386,10 @@ class _BottomBarCustom extends StatelessWidget {
             color: PalleteColor.actionButtonColor.withOpacity(0.5),
             selectedColor: PalleteColor.actionButtonColor,
             items: [
-              BottomAppBarItem(
-                icon: Icons.format_indent_increase,
-                text: 'Campaign',
-              ),
-              BottomAppBarItem(
-                icon: Icons.chrome_reader_mode,
-                text: 'Credentials',
-              ),
-              BottomAppBarItem(
-                icon: Icons.notifications,
-                text: 'Notifications',
-              ),
-              BottomAppBarItem(
-                icon: Icons.settings,
-                text: 'Settings',
-              ),
+              BottomAppBarItem(Icons.format_indent_increase, 'Page 1'),
+              BottomAppBarItem(Icons.chrome_reader_mode, 'Page 2'),
+              BottomAppBarItem(Icons.notifications, 'Page 3'),
+              BottomAppBarItem(Icons.settings, 'Page 4'),
             ],
           ),
         )
@@ -415,7 +400,7 @@ class _BottomBarCustom extends StatelessWidget {
 
 class _FloatingActionButtonCustom extends StatefulWidget {
   const _FloatingActionButtonCustom({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -423,7 +408,7 @@ class _FloatingActionButtonCustom extends StatefulWidget {
 }
 
 class __FloatingActionButtonCustomState extends State<_FloatingActionButtonCustom> with SingleTickerProviderStateMixin {
-  AnimationController _controller;
+  late AnimationController _controller;
   final Duration duration = const Duration(milliseconds: 600);
 
   @override
@@ -446,9 +431,9 @@ class __FloatingActionButtonCustomState extends State<_FloatingActionButtonCusto
       backgroundColor: PalleteColor.actionButtonColor,
       icons: [
         Tooltip(
-          message: 'Create Self-attested VC',
+          message: 'Button 2',
           child: GestureDetector(
-            onTap: () => debugPrint('Tap Self-attested VC'),
+            onTap: () => print('Tap Button 2'),
             child: Icon(
               Icons.create_new_folder,
               color: Colors.white,
@@ -457,23 +442,23 @@ class __FloatingActionButtonCustomState extends State<_FloatingActionButtonCusto
           ),
         ),
         Tooltip(
-          message: 'Create credential',
+          message: 'Button 3',
           child: GestureDetector(
-            onTap: () => debugPrint('Tap create credential'),
+            onTap: () => print('Tap Button 3'),
             child: Icon(Icons.credit_card, color: Colors.white, size: 25),
           ),
         ),
         Tooltip(
-          message: 'Request VC',
+          message: 'Button 1',
           child: GestureDetector(
-            onTap: () => debugPrint('Tap QR'),
+            onTap: () => print('Tap Button 1'),
             child: Icon(Icons.credit_card, color: Colors.white, size: 25),
           ),
         ),
         Tooltip(
-          message: 'Scan a QR',
+          message: 'Button 4',
           child: GestureDetector(
-            onTap: () => debugPrint('Tap QR'),
+            onTap: () => debugPrint('Tap Button 4'),
             child: Icon(Icons.code, color: Colors.white, size: 25),
           ),
         ),
@@ -484,13 +469,11 @@ class __FloatingActionButtonCustomState extends State<_FloatingActionButtonCusto
 
 class _IndexedPages extends StatelessWidget {
   const _IndexedPages({
-    Key key,
-    @required this.backgroundColor,
-    @required this.title,
-    this.openDrawer,
-  })  : assert(backgroundColor != null),
-        assert(title != null),
-        super(key: key);
+    Key? key,
+    required this.backgroundColor,
+    required this.title,
+    required this.openDrawer,
+  }) : super(key: key);
   final Color backgroundColor;
   final String title;
   final VoidCallback openDrawer;
@@ -510,11 +493,10 @@ class _IndexedPages extends StatelessWidget {
 
 class _CustomAppBar extends StatelessWidget {
   const _CustomAppBar({
-    Key key,
-    @required this.title,
-    this.openDrawer,
-  })  : assert(title != null),
-        super(key: key);
+    Key? key,
+    required this.title,
+    required this.openDrawer,
+  }) : super(key: key);
   final String title;
   final VoidCallback openDrawer;
 
@@ -553,7 +535,7 @@ class _CustomAppBar extends StatelessWidget {
 
 class _BodyPage extends StatelessWidget {
   const _BodyPage({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -561,7 +543,7 @@ class _BodyPage extends StatelessWidget {
     return NotificationListener<OverscrollIndicatorNotification>(
       onNotification: (OverscrollIndicatorNotification overscroll) {
         overscroll.disallowGlow();
-        return;
+        return false;
       },
       child: Column(
         mainAxisSize: MainAxisSize.max,
@@ -575,7 +557,7 @@ class _BodyPage extends StatelessWidget {
 
 class _SeachBar extends StatelessWidget {
   const _SeachBar({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
