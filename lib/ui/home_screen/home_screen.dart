@@ -13,29 +13,31 @@ class HomeScreen extends StatelessWidget {
       value: const SystemUiOverlayStyle(
         systemNavigationBarColor: Colors.white,
         systemNavigationBarIconBrightness: Brightness.dark,
-        statusBarColor: Color(0xff0A0A14),
+        statusBarColor: PalleteColor.actionButtonColor,
         statusBarIconBrightness: Brightness.light,
         statusBarBrightness: Brightness.light,
       ),
-      child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: PalleteColor.actionButtonColor,
-          title: const Text('Flutter Challenges'),
-          centerTitle: true,
-          brightness: Brightness.dark,
-        ),
-        body: Center(
-          child: ListView(
-            children: <Widget>[
-              ActionButton(
-                action: () => Navigator.pushNamed(context, Routes.hiddenDrawerBottomBarFab),
-                label: 'Hidden menu with FAB in bottom bar',
-              ),
-              ActionButton(
-                action: () => Navigator.pushNamed(context, Routes.spaceConceptOnboarding),
-                label: 'Space Concept',
-              ),
-            ],
+      child: SafeArea(
+        child: Scaffold(
+          appBar: AppBar(
+            backgroundColor: PalleteColor.actionButtonColor,
+            title: const Text('Flutter Challenges'),
+            centerTitle: true,
+            brightness: Brightness.light,
+          ),
+          body: Center(
+            child: ListView(
+              children: <Widget>[
+                ActionButton(
+                  action: () => Navigator.pushNamed(context, Routes.hiddenDrawerBottomBarFab),
+                  label: 'Hidden menu with FAB in bottom bar',
+                ),
+                ActionButton(
+                  action: () => Navigator.pushNamed(context, Routes.spaceConceptOnboarding),
+                  label: 'Space Concept',
+                ),
+              ],
+            ),
           ),
         ),
       ),

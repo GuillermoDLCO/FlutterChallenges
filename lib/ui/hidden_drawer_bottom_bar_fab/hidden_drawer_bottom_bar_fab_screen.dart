@@ -42,92 +42,101 @@ class _HiddenMenuBottomBarFabState extends State<HiddenMenuBottomBarFab> with Si
     var initial = 0.0;
     var distance = 0.0;
 
-    return Container(
-        color: isCollapsed ? Colors.white : PalleteColor.backgroundMenuDrawerColor,
-        child: SafeArea(
-          child: GestureDetector(
-            onPanStart: (DragStartDetails details) {
-              initial = details.globalPosition.dx;
-            },
-            onPanUpdate: (DragUpdateDetails details) {
-              distance = details.globalPosition.dx - initial;
-            },
-            onPanEnd: (DragEndDetails details) {
-              initial = 0.0;
-              if (distance > 180 && isCollapsed) openMenuDrawer();
-              if (distance < -180 && !isCollapsed) openMenuDrawer();
-              debugPrint('$distance');
-            },
-            child: Scaffold(
-              backgroundColor: PalleteColor.backgroundMenuDrawerColor,
-              body: SafeArea(
-                child: Stack(
-                  children: <Widget>[
-                    const _MenuDrawer(),
-                    AnimatedContainer(
-                      transform: Matrix4.translationValues(xOffset, yOffset, 0)..scale(scaleFactor),
-                      duration: const Duration(milliseconds: 250),
-                      onEnd: () {
-                        if (isCollapsed) {
-                          setState(() {
-                            _roundCornersForm = false;
-                          });
-                        }
-                      },
-                      child: ScaleTransition(
-                        scale: _scaleAnimation,
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(_roundCornersForm ? 40.0 : 0.0),
-                          child: Container(
-                              color: Colors.white,
-                              padding: EdgeInsets.only(top: _roundCornersForm ? 8.0 : 0.0),
-                              child: Scaffold(
-                                extendBody: true,
-                                body: Stack(
-                                  alignment: Alignment.bottomCenter,
-                                  children: <Widget>[
-                                    IndexedStack(
-                                      index: currentIndex,
-                                      children: [
-                                        _IndexedPages(backgroundColor: Colors.green, title: 'Page One', openDrawer: () => openMenuDrawer()),
-                                        _IndexedPages(backgroundColor: Colors.blue, title: 'Page Two', openDrawer: () => openMenuDrawer()),
-                                        _IndexedPages(backgroundColor: Colors.grey, title: 'Page Three', openDrawer: () => openMenuDrawer()),
-                                        _IndexedPages(backgroundColor: Colors.brown, title: 'Page Four', openDrawer: () => openMenuDrawer()),
-                                      ],
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+      value: SystemUiOverlayStyle(
+        systemNavigationBarColor: Colors.white,
+        systemNavigationBarIconBrightness: Brightness.dark,
+        statusBarColor: Colors.white,
+        statusBarIconBrightness: isCollapsed ? Brightness.dark : Brightness.light,
+        statusBarBrightness: isCollapsed ? Brightness.dark : Brightness.light,
+      ),
+      child: Container(
+          color: isCollapsed ? Colors.white : PalleteColor.backgroundMenuDrawerColor,
+          child: SafeArea(
+            child: GestureDetector(
+              onPanStart: (DragStartDetails details) {
+                initial = details.globalPosition.dx;
+              },
+              onPanUpdate: (DragUpdateDetails details) {
+                distance = details.globalPosition.dx - initial;
+              },
+              onPanEnd: (DragEndDetails details) {
+                initial = 0.0;
+                if (distance > 180 && isCollapsed) openMenuDrawer();
+                if (distance < -180 && !isCollapsed) openMenuDrawer();
+                debugPrint('$distance');
+              },
+              child: Scaffold(
+                backgroundColor: PalleteColor.backgroundMenuDrawerColor,
+                body: SafeArea(
+                  child: Stack(
+                    children: <Widget>[
+                      const _MenuDrawer(),
+                      AnimatedContainer(
+                        transform: Matrix4.translationValues(xOffset, yOffset, 0)..scale(scaleFactor),
+                        duration: const Duration(milliseconds: 250),
+                        onEnd: () {
+                          if (isCollapsed) {
+                            setState(() {
+                              _roundCornersForm = false;
+                            });
+                          }
+                        },
+                        child: ScaleTransition(
+                          scale: _scaleAnimation,
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(_roundCornersForm ? 40.0 : 0.0),
+                            child: Container(
+                                color: Colors.white,
+                                padding: EdgeInsets.only(top: _roundCornersForm ? 8.0 : 0.0),
+                                child: Scaffold(
+                                  extendBody: true,
+                                  body: Stack(
+                                    alignment: Alignment.bottomCenter,
+                                    children: <Widget>[
+                                      IndexedStack(
+                                        index: currentIndex,
+                                        children: [
+                                          _IndexedPages(backgroundColor: Colors.green, title: 'Page One', openDrawer: () => openMenuDrawer()),
+                                          _IndexedPages(backgroundColor: Colors.blue, title: 'Page Two', openDrawer: () => openMenuDrawer()),
+                                          _IndexedPages(backgroundColor: Colors.grey, title: 'Page Three', openDrawer: () => openMenuDrawer()),
+                                          _IndexedPages(backgroundColor: Colors.brown, title: 'Page Four', openDrawer: () => openMenuDrawer()),
+                                        ],
+                                      ),
+                                      const Positioned(bottom: 4.0, child: _FloatingActionButtonCustom()),
+                                    ],
+                                  ),
+                                  floatingActionButton: IgnorePointer(
+                                      child: SizedBox(
+                                    width: 50.0,
+                                    child: FloatingActionButton(
+                                      onPressed: () {},
+                                      elevation: 0,
+                                      heroTag: null,
+                                      foregroundColor: Colors.transparent,
+                                      backgroundColor: Colors.transparent,
                                     ),
-                                    const Positioned(bottom: 4.0, child: _FloatingActionButtonCustom()),
-                                  ],
-                                ),
-                                floatingActionButton: IgnorePointer(
-                                    child: SizedBox(
-                                  width: 50.0,
-                                  child: FloatingActionButton(
-                                    onPressed: () {},
-                                    elevation: 0,
-                                    heroTag: null,
-                                    foregroundColor: Colors.transparent,
-                                    backgroundColor: Colors.transparent,
+                                  )),
+                                  floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+                                  bottomNavigationBar: _BottomBarCustom(
+                                    currentIndex: currentIndex,
+                                    updateIndex: (index) {
+                                      setState(() {
+                                        currentIndex = index;
+                                      });
+                                    },
                                   ),
                                 )),
-                                floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-                                bottomNavigationBar: _BottomBarCustom(
-                                  currentIndex: currentIndex,
-                                  updateIndex: (index) {
-                                    setState(() {
-                                      currentIndex = index;
-                                    });
-                                  },
-                                ),
-                              )),
+                          ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),
-          ),
-        ));
+          )),
+    );
   }
 
   void openMenuDrawer() {
