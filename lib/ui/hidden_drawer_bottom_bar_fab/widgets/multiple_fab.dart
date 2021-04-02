@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutterchallenges/theme/pallete_color.dart';
 
 class MultipleFAB extends StatefulWidget {
-  MultipleFAB({
+  const MultipleFAB({
     Key? key,
     required this.icons,
     required AnimationController controller,
@@ -46,7 +46,7 @@ class _MultipleFABState extends State<MultipleFAB> {
   }
 
   double getRadiansFromIndex(int index, {bool is3items = false}) {
-    double unitRadian = 57.295779513;
+    final unitRadian = 57.295779513;
     double degree;
     switch (index) {
       case 0:
@@ -68,13 +68,13 @@ class _MultipleFABState extends State<MultipleFAB> {
   }
 
   double getRadiansFromDegree(double degree) {
-    double unitRadian = 57.295779513;
+    final unitRadian = 57.295779513;
     return degree / unitRadian;
   }
 
   @override
   Widget build(BuildContext context) {
-    bool is3Widgets = widget.icons.length == 3;
+    final is3Widgets = widget.icons.length == 3;
     return Stack(
       clipBehavior: Clip.none,
       fit: StackFit.passthrough,
@@ -95,8 +95,8 @@ class _MultipleFABState extends State<MultipleFAB> {
               child: FloatingActionButton(
                 heroTag: null,
                 backgroundColor: widget.backgroundColor,
-                child: widget.icons[index],
                 onPressed: () {},
+                child: widget.icons[index],
               ));
 
           return Transform.translate(
@@ -114,7 +114,6 @@ class _MultipleFABState extends State<MultipleFAB> {
             child: FloatingActionButton(
               heroTag: null,
               backgroundColor: PalleteColor.actionButtonColor,
-              child: Icon(Icons.add, size: 30.0),
               onPressed: () {
                 if (animationController.isDismissed) {
                   animationController.forward();
@@ -122,6 +121,7 @@ class _MultipleFABState extends State<MultipleFAB> {
                   animationController.reverse();
                 }
               },
+              child: const Icon(Icons.add, size: 30.0),
             ),
           ))
       ],

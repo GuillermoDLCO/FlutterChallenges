@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import 'package:flutterchallenges/hidden_drawer_bottom_bar_fab/widgets/multiple_fab.dart';
+import 'package:flutterchallenges/ui/hidden_drawer_bottom_bar_fab/widgets/multiple_fab.dart';
 import 'package:flutterchallenges/theme/pallete_color.dart';
 
 import 'widgets/bottom_app_bar.dart';
 
 class HiddenMenuBottomBarFab extends StatefulWidget {
+  const HiddenMenuBottomBarFab({Key? key}) : super(key: key);
+
   @override
   _HiddenMenuBottomBarFabState createState() => _HiddenMenuBottomBarFabState();
 }
@@ -37,8 +39,8 @@ class _HiddenMenuBottomBarFabState extends State<HiddenMenuBottomBarFab> with Si
 
   @override
   Widget build(BuildContext context) {
-    double initial = 0;
-    double distance = 0;
+    var initial = 0.0;
+    var distance = 0.0;
 
     return Container(
         color: isCollapsed ? Colors.white : PalleteColor.backgroundMenuDrawerColor,
@@ -61,15 +63,16 @@ class _HiddenMenuBottomBarFabState extends State<HiddenMenuBottomBarFab> with Si
               body: SafeArea(
                 child: Stack(
                   children: <Widget>[
-                    _MenuDrawer(),
+                    const _MenuDrawer(),
                     AnimatedContainer(
                       transform: Matrix4.translationValues(xOffset, yOffset, 0)..scale(scaleFactor),
-                      duration: Duration(milliseconds: 250),
+                      duration: const Duration(milliseconds: 250),
                       onEnd: () {
-                        if (isCollapsed)
+                        if (isCollapsed) {
                           setState(() {
                             _roundCornersForm = false;
                           });
+                        }
                       },
                       child: ScaleTransition(
                         scale: _scaleAnimation,
@@ -92,7 +95,7 @@ class _HiddenMenuBottomBarFabState extends State<HiddenMenuBottomBarFab> with Si
                                         _IndexedPages(backgroundColor: Colors.brown, title: 'Page Four', openDrawer: () => openMenuDrawer()),
                                       ],
                                     ),
-                                    Positioned(bottom: 4.0, child: _FloatingActionButtonCustom()),
+                                    const Positioned(bottom: 4.0, child: _FloatingActionButtonCustom()),
                                   ],
                                 ),
                                 floatingActionButton: IgnorePointer(
@@ -173,15 +176,15 @@ class _MenuDrawer extends StatelessWidget {
                         mainAxisSize: MainAxisSize.min,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
-                          Text("Sets", style: TextStyle(color: Colors.white, fontSize: 22)),
+                          const Text('Sets', style: TextStyle(color: Colors.white, fontSize: 22)),
                           SizedBox(width: MediaQuery.of(context).size.width * 0.3),
-                          Icon(Icons.arrow_drop_down_sharp, color: Colors.white),
+                          const Icon(Icons.arrow_drop_down_sharp, color: Colors.white),
                         ],
                       ),
-                      SizedBox(height: 10),
+                      const SizedBox(height: 10),
                       GestureDetector(
                         onTap: () {},
-                        child: _OptionMenuDrawer(
+                        child: const _OptionMenuDrawer(
                           title: 'Navigation 1',
                           icon: Icon(
                             Icons.check_box_outline_blank,
@@ -192,7 +195,7 @@ class _MenuDrawer extends StatelessWidget {
                       ),
                       GestureDetector(
                           onTap: () {},
-                          child: _OptionMenuDrawer(
+                          child: const _OptionMenuDrawer(
                             title: 'Navigation 2',
                             icon: Icon(
                               Icons.people,
@@ -200,10 +203,10 @@ class _MenuDrawer extends StatelessWidget {
                               color: PalleteColor.actionButtonColor,
                             ),
                           )),
-                      _OptionMenuDrawer(title: 'Navigation 3'),
+                      const _OptionMenuDrawer(title: 'Navigation 3'),
                       GestureDetector(
                         onTap: () {},
-                        child: _OptionMenuDrawer(
+                        child: const _OptionMenuDrawer(
                           title: 'Navigation 4',
                           icon: Icon(
                             Icons.chrome_reader_mode,
@@ -219,7 +222,7 @@ class _MenuDrawer extends StatelessWidget {
             ),
             Column(
               children: <Widget>[
-                _OptionMenuDrawer(
+                const _OptionMenuDrawer(
                   title: 'Invite',
                   backgroundColorIcon: Colors.transparent,
                   icon: Icon(
@@ -228,7 +231,7 @@ class _MenuDrawer extends StatelessWidget {
                     color: Colors.white,
                   ),
                 ),
-                _OptionMenuDrawer(
+                const _OptionMenuDrawer(
                   title: 'Messages',
                   backgroundColorIcon: Colors.transparent,
                   icon: Icon(
@@ -237,7 +240,7 @@ class _MenuDrawer extends StatelessWidget {
                     color: Colors.white,
                   ),
                 ),
-                _OptionMenuDrawer(
+                const _OptionMenuDrawer(
                   title: 'Points',
                   backgroundColorIcon: Colors.transparent,
                   icon: Icon(
@@ -253,16 +256,16 @@ class _MenuDrawer extends StatelessWidget {
                     padding: const EdgeInsets.all(8.0),
                     child: Row(
                       children: <Widget>[
-                        CircleAvatar(radius: 20.0, child: Icon(Icons.account_circle)),
+                        const CircleAvatar(radius: 20.0, child: Icon(Icons.account_circle)),
                         Expanded(
                           child: Padding(
                             padding: const EdgeInsets.only(left: 8.0),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
-                                Text('GuillermoDLCO',
+                                const Text('GuillermoDLCO',
                                     overflow: TextOverflow.ellipsis, style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 17.0)),
-                                Text('Community', style: TextStyle(color: Colors.grey)),
+                                const Text('Community', style: TextStyle(color: Colors.grey)),
                               ],
                             ),
                           ),
@@ -305,8 +308,8 @@ class _OptionMenuDrawer extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(
-              this.title,
-              style: TextStyle(color: Colors.white, fontSize: 16.0),
+              title,
+              style: const TextStyle(color: Colors.white, fontSize: 16.0),
             ),
           ),
         ],
@@ -339,7 +342,7 @@ class _BottomBarCustom extends StatelessWidget {
                 height: 65,
                 decoration: BoxDecoration(
                   color: PalleteColor.backgroundColor,
-                  borderRadius: BorderRadius.only(
+                  borderRadius: const BorderRadius.only(
                     topLeft: Radius.circular(40),
                     topRight: Radius.circular(5.0),
                   ),
@@ -358,7 +361,7 @@ class _BottomBarCustom extends StatelessWidget {
                 height: 65,
                 decoration: BoxDecoration(
                   color: PalleteColor.backgroundColor,
-                  borderRadius: BorderRadius.only(
+                  borderRadius: const BorderRadius.only(
                     topRight: Radius.circular(40),
                     topLeft: Radius.circular(5.0),
                   ),
@@ -374,13 +377,13 @@ class _BottomBarCustom extends StatelessWidget {
           ],
         ),
         ClipRRect(
-          borderRadius: BorderRadius.only(
+          borderRadius: const BorderRadius.only(
             topRight: Radius.circular(40),
             topLeft: Radius.circular(40),
           ),
           child: BottomAppBarCustom(
             onTabSelected: updateIndex,
-            notchedShape: CircularNotchedRectangle(),
+            notchedShape: const CircularNotchedRectangle(),
             selectedIndex: currentIndex,
             backgroundColor: Colors.white,
             color: PalleteColor.actionButtonColor.withOpacity(0.5),
@@ -434,7 +437,7 @@ class __FloatingActionButtonCustomState extends State<_FloatingActionButtonCusto
           message: 'Button 2',
           child: GestureDetector(
             onTap: () => print('Tap Button 2'),
-            child: Icon(
+            child: const Icon(
               Icons.create_new_folder,
               color: Colors.white,
               size: 25,
@@ -445,21 +448,21 @@ class __FloatingActionButtonCustomState extends State<_FloatingActionButtonCusto
           message: 'Button 3',
           child: GestureDetector(
             onTap: () => print('Tap Button 3'),
-            child: Icon(Icons.credit_card, color: Colors.white, size: 25),
+            child: const Icon(Icons.credit_card, color: Colors.white, size: 25),
           ),
         ),
         Tooltip(
           message: 'Button 1',
           child: GestureDetector(
             onTap: () => print('Tap Button 1'),
-            child: Icon(Icons.credit_card, color: Colors.white, size: 25),
+            child: const Icon(Icons.credit_card, color: Colors.white, size: 25),
           ),
         ),
         Tooltip(
           message: 'Button 4',
           child: GestureDetector(
             onTap: () => debugPrint('Tap Button 4'),
-            child: Icon(Icons.code, color: Colors.white, size: 25),
+            child: const Icon(Icons.code, color: Colors.white, size: 25),
           ),
         ),
       ],
@@ -482,11 +485,11 @@ class _IndexedPages extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size(double.infinity, 40.0),
+        preferredSize: const Size(double.infinity, 40.0),
         child: _CustomAppBar(title: title, openDrawer: () => openDrawer()),
       ),
       backgroundColor: PalleteColor.backgroundColor,
-      body: _BodyPage(),
+      body: const _BodyPage(),
     );
   }
 }
@@ -506,12 +509,12 @@ class _CustomAppBar extends StatelessWidget {
       brightness: Brightness.light,
       title: Text(
         '$title',
-        style: TextStyle(color: PalleteColor.actionButtonColor, fontWeight: FontWeight.bold),
+        style: const TextStyle(color: PalleteColor.actionButtonColor, fontWeight: FontWeight.bold),
       ),
       backgroundColor: Colors.white,
       elevation: 0.0,
       leading: IconButton(
-        icon: Icon(
+        icon: const Icon(
           Icons.menu,
           size: 25,
           color: PalleteColor.actionButtonColor,
@@ -521,7 +524,7 @@ class _CustomAppBar extends StatelessWidget {
       centerTitle: true,
       actions: <Widget>[
         IconButton(
-          icon: Icon(
+          icon: const Icon(
             Icons.format_align_center,
             size: 25,
             color: PalleteColor.actionButtonColor,
@@ -548,7 +551,7 @@ class _BodyPage extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.max,
         children: <Widget>[
-          _SeachBar(),
+          const _SeachBar(),
         ],
       ),
     );
@@ -578,8 +581,8 @@ class _SeachBar extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.all(8.0),
+              const Padding(
+                padding: EdgeInsets.all(8.0),
                 child: Icon(Icons.search, size: 20.0, color: Color(0xff8b8b8b)),
               ),
               Expanded(
@@ -591,11 +594,12 @@ class _SeachBar extends StatelessWidget {
                     textAlignVertical: TextAlignVertical.center,
                     textInputAction: TextInputAction.done,
                     decoration: InputDecoration(
-                      enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.transparent, width: 0.1)),
-                      focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.transparent, width: 0.1)),
-                      border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0), borderSide: BorderSide(color: Colors.transparent, width: 0.1)),
-                      hintText: "Search",
-                      hintStyle: TextStyle(
+                      enabledBorder: const OutlineInputBorder(borderSide: BorderSide(color: Colors.transparent, width: 0.1)),
+                      focusedBorder: const OutlineInputBorder(borderSide: BorderSide(color: Colors.transparent, width: 0.1)),
+                      border:
+                          OutlineInputBorder(borderRadius: BorderRadius.circular(10.0), borderSide: const BorderSide(color: Colors.transparent, width: 0.1)),
+                      hintText: 'Search',
+                      hintStyle: const TextStyle(
                         color: Color(0xff8b8b8b),
                         fontSize: 11.0,
                       ),
@@ -605,7 +609,7 @@ class _SeachBar extends StatelessWidget {
                   ),
                 ),
               ),
-              Icon(Icons.close, color: Colors.transparent)
+              const Icon(Icons.close, color: Colors.transparent)
             ],
           ),
         ),

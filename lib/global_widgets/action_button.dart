@@ -19,12 +19,12 @@ class ActionButton extends StatelessWidget {
         width: MediaQuery.of(context).size.width,
         height: 50,
         child: ElevatedButton(
-          onPressed: this.action,
+          onPressed: action,
           style: ElevatedButton.styleFrom(
             primary: PalleteColor.actionButtonColor,
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
           ),
-          child: Text(this.label, style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+          child: Text(label, style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
         ),
       ),
     );

@@ -7,7 +7,7 @@ class BottomAppBarItem {
 }
 
 class BottomAppBarCustom extends StatefulWidget {
-  BottomAppBarCustom({
+  const BottomAppBarCustom({
     required this.items,
     this.height = 60.0,
     this.iconSize = 24.0,
@@ -17,9 +17,8 @@ class BottomAppBarCustom extends StatefulWidget {
     required this.notchedShape,
     required this.onTabSelected,
     this.selectedIndex = 0,
-  }) {
-    assert(this.items.length == 2 || this.items.length == 4);
-  }
+  }) : assert(items.length == 2 || items.length == 4);
+
   final List<BottomAppBarItem> items;
   final double height;
   final double iconSize;
@@ -41,6 +40,7 @@ class BottomAppBarCustomState extends State<BottomAppBarCustom> {
       shape: widget.notchedShape,
       elevation: 5,
       notchMargin: 10.0,
+      color: widget.backgroundColor,
       child: Container(
         height: 65.0,
         child: Row(
@@ -59,7 +59,6 @@ class BottomAppBarCustomState extends State<BottomAppBarCustom> {
             ..insert(widget.items.length >> 1, _MiddleTabItem(height: widget.height)),
         ),
       ),
-      color: widget.backgroundColor,
     );
   }
 }
@@ -74,7 +73,7 @@ class _MiddleTabItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: SizedBox(height: this.height),
+      child: SizedBox(height: height),
     );
   }
 }
