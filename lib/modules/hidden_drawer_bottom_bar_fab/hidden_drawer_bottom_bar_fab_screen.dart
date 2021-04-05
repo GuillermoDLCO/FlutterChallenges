@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import 'package:flutterchallenges/ui/hidden_drawer_bottom_bar_fab/widgets/multiple_fab.dart';
+import 'package:flutterchallenges/modules/hidden_drawer_bottom_bar_fab/widgets/multiple_fab.dart';
 import 'package:flutterchallenges/theme/pallete_color.dart';
 
 import 'widgets/bottom_app_bar.dart';

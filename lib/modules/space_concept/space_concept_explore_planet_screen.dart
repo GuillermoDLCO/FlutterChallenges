@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:flutterchallenges/ui/space_concept/widgets/bottom_bar.dart';
-import 'package:flutterchallenges/ui/space_concept/widgets/pick_to_option.dart';
-import 'package:flutterchallenges/ui/space_concept/widgets/top_bar.dart';
+import 'package:flutterchallenges/modules/space_concept/widgets/bottom_bar.dart';
+import 'package:flutterchallenges/modules/space_concept/widgets/pick_to_option.dart';
+import 'package:flutterchallenges/modules/space_concept/widgets/top_bar.dart';
 
 class SpaceConceptExplorePlanetScreen extends StatelessWidget {
   const SpaceConceptExplorePlanetScreen({Key? key}) : super(key: key);

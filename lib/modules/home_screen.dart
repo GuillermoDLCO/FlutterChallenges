@@ -36,6 +36,10 @@ class HomeScreen extends StatelessWidget {
                   action: () => Navigator.pushNamed(context, Routes.spaceConceptOnboarding),
                   label: 'Space Concept',
                 ),
+                ActionButton(
+                  action: () => Navigator.pushNamed(context, Routes.travelApp),
+                  label: 'Travel App',
+                ),
               ],
             ),
           ),

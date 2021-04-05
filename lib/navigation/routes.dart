@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutterchallenges/ui/hidden_drawer_bottom_bar_fab/hidden_drawer_bottom_bar_fab_screen.dart';
-import 'package:flutterchallenges/ui/home_screen/home_screen.dart';
-import 'package:flutterchallenges/ui/space_concept/space_concept_explore_planet_screen.dart';
-import 'package:flutterchallenges/ui/space_concept/space_concept_intro_screen.dart';
-import 'package:flutterchallenges/ui/space_concept/space_concept_onboarding_screen.dart';
-import 'package:flutterchallenges/ui/space_concept/space_concept_principal_screen.dart';
+import 'package:flutterchallenges/modules/hidden_drawer_bottom_bar_fab/hidden_drawer_bottom_bar_fab_screen.dart';
+import 'package:flutterchallenges/modules/home_screen.dart';
+import 'package:flutterchallenges/modules/space_concept/space_concept_explore_planet_screen.dart';
+import 'package:flutterchallenges/modules/space_concept/space_concept_intro_screen.dart';
+import 'package:flutterchallenges/modules/space_concept/space_concept_onboarding_screen.dart';
+import 'package:flutterchallenges/modules/space_concept/space_concept_principal_screen.dart';
+import 'package:flutterchallenges/modules/travel_app/country.dart';
+import 'package:flutterchallenges/modules/travel_app/travel_country_details_screen.dart';
+import 'package:flutterchallenges/modules/travel_app/travel_home_screen.dart';
 
 class Routes {
   static const initial = '/';
@@ -14,6 +17,8 @@ class Routes {
   static const spaceConceptIntro = '/spaceConceptIntro';
   static const spaceConceptPrincipal = '/spaceConceptPrincipal';
   static const spaceConceptExplorePlanet = '/spaceConceptExplorePlanet';
+  static const travelApp = '/travelApp';
+  static const travelCountryDetails = '/travelCountryDetails';
 
   static Route routes(RouteSettings routeSettings) {
     print('Route name: ${routeSettings.name}');
@@ -32,6 +37,10 @@ class Routes {
         return _buildRoute(const SpaceConceptPrincipalScreen());
       case spaceConceptExplorePlanet:
         return _buildRoute(const SpaceConceptExplorePlanetScreen());
+      case travelApp:
+        return _buildRoute(const TravelHomeScreen());
+      case travelCountryDetails:
+        return _buildRoute(TravelCountryDetails(country: args as Country));
       default:
         throw PlatformException(code: 'ROUTE_ERROR', message: 'Route does not exists');
     }

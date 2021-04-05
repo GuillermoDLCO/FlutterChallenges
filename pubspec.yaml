@@ -12,8 +12,9 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.2
-
   flutter_svg: ^0.21.0-nullsafety.0
+  flutter_bloc: ^7.0.0
+  equatable: ^2.0.0-nullsafety.3
 
 dev_dependencies:
   flutter_test:
@@ -25,7 +26,8 @@ flutter:
   uses-material-design: true
   assets:
     - assets/space_concept/
-  
+    - assets/travel_app/
+
   fonts:
     - family: Mark
       fonts:
@@ -38,3 +40,27 @@ flutter:
           weight: 500
         - asset: fonts/mark/Mark-Thin.otf
           weight: 400
+
+    - family: SF-Pro-Display
+      fonts:
+        - asset: fonts/sf_pro_display/SF-Pro-Display-Regular.otf
+        - asset: fonts/sf_pro_display/SF-Pro-Display-Bold.otf
+          weight: 800
+        - asset: fonts/sf_pro_display/SF-Pro-Display-Semibold.otf
+          weight: 700
+        - asset: fonts/sf_pro_display/SF-Pro-Display-Medium.otf
+          weight: 600
+        - asset: fonts/sf_pro_display/SF-Pro-Display-Light.otf
+          weight: 500
+
+    - family: SF-Pro-Text
+      fonts:
+        - asset: fonts/sf_pro_text/SF-Pro-Text-Regular.otf
+        - asset: fonts/sf_pro_text/SF-Pro-Text-Bold.otf
+          weight: 800
+        - asset: fonts/sf_pro_text/SF-Pro-Text-Semibold.otf
+          weight: 700
+        - asset: fonts/sf_pro_text/SF-Pro-Text-Medium.otf
+          weight: 600
+        - asset: fonts/sf_pro_text/SF-Pro-Text-Light.otf
+          weight: 500
