@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutterchallenges/modules/facebook_redesign/facebook_principal_screen.dart';
 import 'package:flutterchallenges/modules/hidden_drawer_bottom_bar_fab/hidden_drawer_bottom_bar_fab_screen.dart';
 import 'package:flutterchallenges/modules/home_screen.dart';
 import 'package:flutterchallenges/modules/space_concept/space_concept_explore_planet_screen.dart';
@@ -19,6 +20,7 @@ class Routes {
   static const spaceConceptExplorePlanet = '/spaceConceptExplorePlanet';
   static const travelApp = '/travelApp';
   static const travelCountryDetails = '/travelCountryDetails';
+  static const facebookPrincipalScreen = '/facebookPrincipalScreen';
 
   static Route routes(RouteSettings routeSettings) {
     print('Route name: ${routeSettings.name}');
@@ -41,6 +43,8 @@ class Routes {
         return _buildRoute(const TravelHomeScreen());
       case travelCountryDetails:
         return _buildRoute(TravelCountryDetails(country: args as Country));
+      case facebookPrincipalScreen:
+        return _buildRoute(const FacebookPrincipalScreen());
       default:
         throw PlatformException(code: 'ROUTE_ERROR', message: 'Route does not exists');
     }
