@@ -8,6 +8,7 @@ class BottomAppBarItem {
 
 class BottomAppBarCustom extends StatefulWidget {
   const BottomAppBarCustom({
+    super.key,
     required this.items,
     this.height = 60.0,
     this.iconSize = 24.0,
@@ -17,7 +18,10 @@ class BottomAppBarCustom extends StatefulWidget {
     required this.notchedShape,
     required this.onTabSelected,
     this.selectedIndex = 0,
-  }) : assert(items.length == 2 || items.length == 4);
+  }) : assert(
+          items.length == 2 || items.length == 4,
+          'Length not equal to 2 or 4',
+        );
 
   final List<BottomAppBarItem> items;
   final double height;
@@ -39,24 +43,28 @@ class BottomAppBarCustomState extends State<BottomAppBarCustom> {
     return BottomAppBar(
       shape: widget.notchedShape,
       elevation: 5,
-      notchMargin: 10.0,
+      notchMargin: 10,
       color: widget.backgroundColor,
-      child: Container(
-        height: 65.0,
+      child: SizedBox(
+        height: 65,
         child: Row(
-          mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: List.generate(widget.items.length, (int index) {
             return TabItemBottomBar(
               item: widget.items[index],
               index: index,
               iconSize: widget.iconSize,
-              color: widget.selectedIndex == index ? widget.selectedColor : widget.color,
+              color: widget.selectedIndex == index
+                  ? widget.selectedColor
+                  : widget.color,
               onPressed: (int index) => widget.onTabSelected(index),
               height: widget.height,
             );
           })
-            ..insert(widget.items.length >> 1, _MiddleTabItem(height: widget.height)),
+            ..insert(
+              widget.items.length >> 1,
+              _MiddleTabItem(height: widget.height),
+            ),
         ),
       ),
     );
@@ -65,9 +73,8 @@ class BottomAppBarCustomState extends State<BottomAppBarCustom> {
 
 class _MiddleTabItem extends StatelessWidget {
   const _MiddleTabItem({
-    Key? key,
     required this.height,
-  }) : super(key: key);
+  });
   final double height;
 
   @override
@@ -80,14 +87,14 @@ class _MiddleTabItem extends StatelessWidget {
 
 class TabItemBottomBar extends StatelessWidget {
   const TabItemBottomBar({
-    Key? key,
+    super.key,
     required this.item,
     required this.index,
     required this.onPressed,
     required this.color,
     required this.height,
     required this.iconSize,
-  }) : super(key: key);
+  });
 
   final BottomAppBarItem item;
   final int index;
@@ -110,8 +117,13 @@ class TabItemBottomBar extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Icon(item.icon, size: iconSize, color: color),
-                const SizedBox(height: 2.0),
-                FittedBox(child: Text(item.text, style: TextStyle(color: color, fontSize: 12.0))),
+                const SizedBox(height: 2),
+                FittedBox(
+                  child: Text(
+                    item.text,
+                    style: TextStyle(color: color, fontSize: 12),
+                  ),
+                ),
               ],
             ),
           ),

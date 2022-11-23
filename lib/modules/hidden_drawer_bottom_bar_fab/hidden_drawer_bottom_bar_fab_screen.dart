@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
+import 'package:flutterchallenges/modules/hidden_drawer_bottom_bar_fab/widgets/bottom_app_bar.dart';
 import 'package:flutterchallenges/modules/hidden_drawer_bottom_bar_fab/widgets/multiple_fab.dart';
 import 'package:flutterchallenges/theme/pallete_color.dart';
 
-import 'widgets/bottom_app_bar.dart';
-
 class HiddenMenuBottomBarFab extends StatefulWidget {
-  const HiddenMenuBottomBarFab({Key? key}) : super(key: key);
+  const HiddenMenuBottomBarFab({super.key});
 
   @override
-  _HiddenMenuBottomBarFabState createState() => _HiddenMenuBottomBarFabState();
+  State<HiddenMenuBottomBarFab> createState() => _HiddenMenuBottomBarFabState();
 }
 
-class _HiddenMenuBottomBarFabState extends State<HiddenMenuBottomBarFab> with SingleTickerProviderStateMixin {
+class _HiddenMenuBottomBarFabState extends State<HiddenMenuBottomBarFab>
+    with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _scaleAnimation;
   final Duration duration = const Duration(milliseconds: 400);
@@ -27,7 +26,7 @@ class _HiddenMenuBottomBarFabState extends State<HiddenMenuBottomBarFab> with Si
   @override
   void initState() {
     _controller = AnimationController(vsync: this, duration: duration);
-    _scaleAnimation = Tween<double>(begin: 1.0, end: 1.2).animate(_controller);
+    _scaleAnimation = Tween<double>(begin: 1, end: 1.2).animate(_controller);
     super.initState();
   }
 
@@ -47,95 +46,125 @@ class _HiddenMenuBottomBarFabState extends State<HiddenMenuBottomBarFab> with Si
         systemNavigationBarColor: Colors.white,
         systemNavigationBarIconBrightness: Brightness.dark,
         statusBarColor: Colors.white,
-        statusBarIconBrightness: isCollapsed ? Brightness.dark : Brightness.light,
+        statusBarIconBrightness:
+            isCollapsed ? Brightness.dark : Brightness.light,
         statusBarBrightness: isCollapsed ? Brightness.dark : Brightness.light,
       ),
-      child: Container(
-          color: isCollapsed ? Colors.white : PalleteColor.backgroundMenuDrawerColor,
-          child: SafeArea(
-            child: GestureDetector(
-              onPanStart: (DragStartDetails details) {
-                initial = details.globalPosition.dx;
-              },
-              onPanUpdate: (DragUpdateDetails details) {
-                distance = details.globalPosition.dx - initial;
-              },
-              onPanEnd: (DragEndDetails details) {
-                initial = 0.0;
-                if (distance > 180 && isCollapsed) openMenuDrawer();
-                if (distance < -180 && !isCollapsed) openMenuDrawer();
-                debugPrint('$distance');
-              },
-              child: Scaffold(
-                backgroundColor: PalleteColor.backgroundMenuDrawerColor,
-                body: SafeArea(
-                  child: Stack(
-                    children: <Widget>[
-                      const _MenuDrawer(),
-                      AnimatedContainer(
-                        transform: Matrix4.translationValues(xOffset, yOffset, 0)..scale(scaleFactor),
-                        duration: const Duration(milliseconds: 250),
-                        onEnd: () {
-                          if (isCollapsed) {
-                            setState(() {
-                              _roundCornersForm = false;
-                            });
-                          }
-                        },
-                        child: ScaleTransition(
-                          scale: _scaleAnimation,
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(_roundCornersForm ? 40.0 : 0.0),
-                            child: Container(
-                                color: Colors.white,
-                                padding: EdgeInsets.only(top: _roundCornersForm ? 8.0 : 0.0),
-                                child: Scaffold(
-                                  extendBody: true,
-                                  body: Stack(
-                                    alignment: Alignment.bottomCenter,
-                                    children: <Widget>[
-                                      IndexedStack(
-                                        index: currentIndex,
-                                        children: [
-                                          _IndexedPages(backgroundColor: Colors.green, title: 'Page One', openDrawer: () => openMenuDrawer()),
-                                          _IndexedPages(backgroundColor: Colors.blue, title: 'Page Two', openDrawer: () => openMenuDrawer()),
-                                          _IndexedPages(backgroundColor: Colors.grey, title: 'Page Three', openDrawer: () => openMenuDrawer()),
-                                          _IndexedPages(backgroundColor: Colors.brown, title: 'Page Four', openDrawer: () => openMenuDrawer()),
-                                        ],
+      child: ColoredBox(
+        color:
+            isCollapsed ? Colors.white : PalleteColor.backgroundMenuDrawerColor,
+        child: SafeArea(
+          child: GestureDetector(
+            onPanStart: (DragStartDetails details) {
+              initial = details.globalPosition.dx;
+            },
+            onPanUpdate: (DragUpdateDetails details) {
+              distance = details.globalPosition.dx - initial;
+            },
+            onPanEnd: (DragEndDetails details) {
+              initial = 0.0;
+              if (distance > 180 && isCollapsed) openMenuDrawer();
+              if (distance < -180 && !isCollapsed) openMenuDrawer();
+              debugPrint('$distance');
+            },
+            child: Scaffold(
+              backgroundColor: PalleteColor.backgroundMenuDrawerColor,
+              body: SafeArea(
+                child: Stack(
+                  children: <Widget>[
+                    const _MenuDrawer(),
+                    AnimatedContainer(
+                      transform: Matrix4.translationValues(xOffset, yOffset, 0)
+                        ..scale(scaleFactor),
+                      duration: const Duration(milliseconds: 250),
+                      onEnd: () {
+                        if (isCollapsed) {
+                          setState(() {
+                            _roundCornersForm = false;
+                          });
+                        }
+                      },
+                      child: ScaleTransition(
+                        scale: _scaleAnimation,
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(
+                            _roundCornersForm ? 40.0 : 0.0,
+                          ),
+                          child: Container(
+                            color: Colors.white,
+                            padding: EdgeInsets.only(
+                              top: _roundCornersForm ? 8.0 : 0.0,
+                            ),
+                            child: Scaffold(
+                              extendBody: true,
+                              body: Stack(
+                                alignment: Alignment.bottomCenter,
+                                children: <Widget>[
+                                  IndexedStack(
+                                    index: currentIndex,
+                                    children: [
+                                      _IndexedPages(
+                                        backgroundColor: Colors.green,
+                                        title: 'Page One',
+                                        openDrawer: openMenuDrawer,
                                       ),
-                                      const Positioned(bottom: 4.0, child: _FloatingActionButtonCustom()),
+                                      _IndexedPages(
+                                        backgroundColor: Colors.blue,
+                                        title: 'Page Two',
+                                        openDrawer: openMenuDrawer,
+                                      ),
+                                      _IndexedPages(
+                                        backgroundColor: Colors.grey,
+                                        title: 'Page Three',
+                                        openDrawer: openMenuDrawer,
+                                      ),
+                                      _IndexedPages(
+                                        backgroundColor: Colors.brown,
+                                        title: 'Page Four',
+                                        openDrawer: openMenuDrawer,
+                                      ),
                                     ],
                                   ),
-                                  floatingActionButton: IgnorePointer(
-                                      child: SizedBox(
-                                    width: 50.0,
-                                    child: FloatingActionButton(
-                                      onPressed: () {},
-                                      elevation: 0,
-                                      heroTag: null,
-                                      foregroundColor: Colors.transparent,
-                                      backgroundColor: Colors.transparent,
-                                    ),
-                                  )),
-                                  floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-                                  bottomNavigationBar: _BottomBarCustom(
-                                    currentIndex: currentIndex,
-                                    updateIndex: (index) {
-                                      setState(() {
-                                        currentIndex = index;
-                                      });
-                                    },
+                                  const Positioned(
+                                    bottom: 4,
+                                    child: _FloatingActionButtonCustom(),
                                   ),
-                                )),
+                                ],
+                              ),
+                              floatingActionButton: IgnorePointer(
+                                child: SizedBox(
+                                  width: 50,
+                                  child: FloatingActionButton(
+                                    onPressed: () {},
+                                    elevation: 0,
+                                    heroTag: null,
+                                    foregroundColor: Colors.transparent,
+                                    backgroundColor: Colors.transparent,
+                                  ),
+                                ),
+                              ),
+                              floatingActionButtonLocation:
+                                  FloatingActionButtonLocation.centerDocked,
+                              bottomNavigationBar: _BottomBarCustom(
+                                currentIndex: currentIndex,
+                                updateIndex: (index) {
+                                  setState(() {
+                                    currentIndex = index;
+                                  });
+                                },
+                              ),
+                            ),
                           ),
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
             ),
-          )),
+          ),
+        ),
+      ),
     );
   }
 
@@ -160,9 +189,7 @@ class _HiddenMenuBottomBarFabState extends State<HiddenMenuBottomBarFab> with Si
 }
 
 class _MenuDrawer extends StatelessWidget {
-  const _MenuDrawer({
-    Key? key,
-  }) : super(key: key);
+  const _MenuDrawer();
 
   @override
   Widget build(BuildContext context) {
@@ -170,7 +197,7 @@ class _MenuDrawer extends StatelessWidget {
       backgroundColor: PalleteColor.backgroundMenuDrawerColor,
       body: Container(
         width: MediaQuery.of(context).size.width * 0.6,
-        padding: const EdgeInsets.only(left: 10.0, bottom: 5.0),
+        padding: const EdgeInsets.only(left: 10, bottom: 5),
         child: Column(
           children: <Widget>[
             Expanded(
@@ -180,14 +207,22 @@ class _MenuDrawer extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      const SizedBox(height: 50.0),
+                      const SizedBox(height: 50),
                       Row(
                         mainAxisSize: MainAxisSize.min,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
-                          const Text('Sets', style: TextStyle(color: Colors.white, fontSize: 22)),
-                          SizedBox(width: MediaQuery.of(context).size.width * 0.3),
-                          const Icon(Icons.arrow_drop_down_sharp, color: Colors.white),
+                          const Text(
+                            'Sets',
+                            style: TextStyle(color: Colors.white, fontSize: 22),
+                          ),
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width * 0.3,
+                          ),
+                          const Icon(
+                            Icons.arrow_drop_down_sharp,
+                            color: Colors.white,
+                          ),
                         ],
                       ),
                       const SizedBox(height: 10),
@@ -203,15 +238,16 @@ class _MenuDrawer extends StatelessWidget {
                         ),
                       ),
                       GestureDetector(
-                          onTap: () {},
-                          child: const _OptionMenuDrawer(
-                            title: 'Navigation 2',
-                            icon: Icon(
-                              Icons.people,
-                              size: 25,
-                              color: PalleteColor.actionButtonColor,
-                            ),
-                          )),
+                        onTap: () {},
+                        child: const _OptionMenuDrawer(
+                          title: 'Navigation 2',
+                          icon: Icon(
+                            Icons.people,
+                            size: 25,
+                            color: PalleteColor.actionButtonColor,
+                          ),
+                        ),
+                      ),
                       const _OptionMenuDrawer(title: 'Navigation 3'),
                       GestureDetector(
                         onTap: () {},
@@ -258,23 +294,36 @@ class _MenuDrawer extends StatelessWidget {
                     color: Colors.white,
                   ),
                 ),
-                const SizedBox(height: 20.0),
+                const SizedBox(height: 20),
                 GestureDetector(
                   onTap: () {},
                   child: Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.all(8),
                     child: Row(
                       children: <Widget>[
-                        const CircleAvatar(radius: 20.0, child: Icon(Icons.account_circle)),
+                        const CircleAvatar(
+                          radius: 20,
+                          child: Icon(Icons.account_circle),
+                        ),
                         Expanded(
                           child: Padding(
-                            padding: const EdgeInsets.only(left: 8.0),
+                            padding: const EdgeInsets.only(left: 8),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                const Text('GuillermoDLCO',
-                                    overflow: TextOverflow.ellipsis, style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 17.0)),
-                                const Text('Community', style: TextStyle(color: Colors.grey)),
+                              children: const <Widget>[
+                                Text(
+                                  'GuillermoDLCO',
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 17,
+                                  ),
+                                ),
+                                Text(
+                                  'Community',
+                                  style: TextStyle(color: Colors.grey),
+                                ),
                               ],
                             ),
                           ),
@@ -294,11 +343,10 @@ class _MenuDrawer extends StatelessWidget {
 
 class _OptionMenuDrawer extends StatelessWidget {
   const _OptionMenuDrawer({
-    Key? key,
     required this.title,
     this.icon,
     this.backgroundColorIcon = Colors.white,
-  }) : super(key: key);
+  });
   final String title;
   final Widget? icon;
   final Color backgroundColorIcon;
@@ -306,19 +354,19 @@ class _OptionMenuDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.all(8),
       child: Row(
         children: <Widget>[
           CircleAvatar(
             backgroundColor: backgroundColorIcon,
-            radius: 20.0,
+            radius: 20,
             child: icon,
           ),
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(8),
             child: Text(
               title,
-              style: const TextStyle(color: Colors.white, fontSize: 16.0),
+              style: const TextStyle(color: Colors.white, fontSize: 16),
             ),
           ),
         ],
@@ -327,14 +375,13 @@ class _OptionMenuDrawer extends StatelessWidget {
   }
 }
 
-typedef OnUpdateIndex = Function(int index);
+typedef OnUpdateIndex = void Function(int index);
 
 class _BottomBarCustom extends StatelessWidget {
   const _BottomBarCustom({
-    Key? key,
     required this.currentIndex,
     required this.updateIndex,
-  }) : super(key: key);
+  });
 
   final int currentIndex;
   final OnUpdateIndex updateIndex;
@@ -353,18 +400,18 @@ class _BottomBarCustom extends StatelessWidget {
                   color: PalleteColor.backgroundColor,
                   borderRadius: const BorderRadius.only(
                     topLeft: Radius.circular(40),
-                    topRight: Radius.circular(5.0),
+                    topRight: Radius.circular(5),
                   ),
                   boxShadow: <BoxShadow>[
                     BoxShadow(
                       color: Colors.black.withOpacity(0.3),
-                      blurRadius: 3.0,
+                      blurRadius: 3,
                     ),
                   ],
                 ),
               ),
             ),
-            Container(height: 65, width: 85.0),
+            const SizedBox(height: 65, width: 85),
             Expanded(
               child: Container(
                 height: 65,
@@ -372,7 +419,7 @@ class _BottomBarCustom extends StatelessWidget {
                   color: PalleteColor.backgroundColor,
                   borderRadius: const BorderRadius.only(
                     topRight: Radius.circular(40),
-                    topLeft: Radius.circular(5.0),
+                    topLeft: Radius.circular(5),
                   ),
                   boxShadow: <BoxShadow>[
                     BoxShadow(
@@ -411,15 +458,16 @@ class _BottomBarCustom extends StatelessWidget {
 }
 
 class _FloatingActionButtonCustom extends StatefulWidget {
-  const _FloatingActionButtonCustom({
-    Key? key,
-  }) : super(key: key);
+  const _FloatingActionButtonCustom();
 
   @override
-  __FloatingActionButtonCustomState createState() => __FloatingActionButtonCustomState();
+  __FloatingActionButtonCustomState createState() =>
+      __FloatingActionButtonCustomState();
 }
 
-class __FloatingActionButtonCustomState extends State<_FloatingActionButtonCustom> with SingleTickerProviderStateMixin {
+class __FloatingActionButtonCustomState
+    extends State<_FloatingActionButtonCustom>
+    with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   final Duration duration = const Duration(milliseconds: 600);
 
@@ -481,11 +529,10 @@ class __FloatingActionButtonCustomState extends State<_FloatingActionButtonCusto
 
 class _IndexedPages extends StatelessWidget {
   const _IndexedPages({
-    Key? key,
     required this.backgroundColor,
     required this.title,
     required this.openDrawer,
-  }) : super(key: key);
+  });
   final Color backgroundColor;
   final String title;
   final VoidCallback openDrawer;
@@ -494,8 +541,8 @@ class _IndexedPages extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: const Size(double.infinity, 40.0),
-        child: _CustomAppBar(title: title, openDrawer: () => openDrawer()),
+        preferredSize: const Size(double.infinity, 40),
+        child: _CustomAppBar(title: title, openDrawer: openDrawer),
       ),
       backgroundColor: PalleteColor.backgroundColor,
       body: const _BodyPage(),
@@ -505,30 +552,31 @@ class _IndexedPages extends StatelessWidget {
 
 class _CustomAppBar extends StatelessWidget {
   const _CustomAppBar({
-    Key? key,
     required this.title,
     required this.openDrawer,
-  }) : super(key: key);
+  });
   final String title;
   final VoidCallback openDrawer;
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      brightness: Brightness.light,
       title: Text(
-        '$title',
-        style: const TextStyle(color: PalleteColor.actionButtonColor, fontWeight: FontWeight.bold),
+        title,
+        style: const TextStyle(
+          color: PalleteColor.actionButtonColor,
+          fontWeight: FontWeight.bold,
+        ),
       ),
       backgroundColor: Colors.white,
-      elevation: 0.0,
+      elevation: 0,
       leading: IconButton(
         icon: const Icon(
           Icons.menu,
           size: 25,
           color: PalleteColor.actionButtonColor,
         ),
-        onPressed: () => openDrawer(),
+        onPressed: openDrawer,
       ),
       centerTitle: true,
       actions: <Widget>[
@@ -541,26 +589,24 @@ class _CustomAppBar extends StatelessWidget {
           onPressed: () {},
         )
       ],
+      systemOverlayStyle: SystemUiOverlayStyle.dark,
     );
   }
 }
 
 class _BodyPage extends StatelessWidget {
-  const _BodyPage({
-    Key? key,
-  }) : super(key: key);
+  const _BodyPage();
 
   @override
   Widget build(BuildContext context) {
     return NotificationListener<OverscrollIndicatorNotification>(
       onNotification: (OverscrollIndicatorNotification overscroll) {
-        overscroll.disallowGlow();
+        overscroll.disallowIndicator();
         return false;
       },
       child: Column(
-        mainAxisSize: MainAxisSize.max,
-        children: <Widget>[
-          const _SeachBar(),
+        children: const <Widget>[
+          _SeachBar(),
         ],
       ),
     );
@@ -568,9 +614,7 @@ class _BodyPage extends StatelessWidget {
 }
 
 class _SeachBar extends StatelessWidget {
-  const _SeachBar({
-    Key? key,
-  }) : super(key: key);
+  const _SeachBar();
 
   @override
   Widget build(BuildContext context) {
@@ -579,40 +623,53 @@ class _SeachBar extends StatelessWidget {
       backgroundColor: Colors.white,
       automaticallyImplyLeading: false,
       flexibleSpace: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Container(
+        padding: const EdgeInsets.all(8),
+        child: DecoratedBox(
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10.0),
+            borderRadius: BorderRadius.circular(10),
             border: Border.all(color: Colors.grey, width: 0.1),
             color: PalleteColor.backgroundColor,
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               const Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Icon(Icons.search, size: 20.0, color: Color(0xff8b8b8b)),
+                padding: EdgeInsets.all(8),
+                child: Icon(Icons.search, size: 20, color: Color(0xff8b8b8b)),
               ),
               Expanded(
-                child: Container(
-                  height: 30.0,
+                child: SizedBox(
+                  height: 30,
                   child: TextField(
                     onTap: () {},
-                    autofocus: false,
                     textAlignVertical: TextAlignVertical.center,
                     textInputAction: TextInputAction.done,
                     decoration: InputDecoration(
-                      enabledBorder: const OutlineInputBorder(borderSide: BorderSide(color: Colors.transparent, width: 0.1)),
-                      focusedBorder: const OutlineInputBorder(borderSide: BorderSide(color: Colors.transparent, width: 0.1)),
-                      border:
-                          OutlineInputBorder(borderRadius: BorderRadius.circular(10.0), borderSide: const BorderSide(color: Colors.transparent, width: 0.1)),
+                      enabledBorder: const OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Colors.transparent,
+                          width: 0.1,
+                        ),
+                      ),
+                      focusedBorder: const OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Colors.transparent,
+                          width: 0.1,
+                        ),
+                      ),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: const BorderSide(
+                          color: Colors.transparent,
+                          width: 0.1,
+                        ),
+                      ),
                       hintText: 'Search',
                       hintStyle: const TextStyle(
                         color: Color(0xff8b8b8b),
-                        fontSize: 11.0,
+                        fontSize: 11,
                       ),
-                      contentPadding: const EdgeInsets.all(0),
+                      contentPadding: EdgeInsets.zero,
                       alignLabelWithHint: true,
                     ),
                   ),

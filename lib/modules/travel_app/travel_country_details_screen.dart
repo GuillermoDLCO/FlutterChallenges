@@ -1,13 +1,10 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-
 import 'package:flutterchallenges/modules/travel_app/country.dart';
 
 class TravelCountryDetails extends StatelessWidget {
-  const TravelCountryDetails({Key? key, required this.country}) : super(key: key);
+  const TravelCountryDetails({super.key, required this.country});
 
   final Country country;
 
@@ -36,9 +33,8 @@ class TravelCountryDetails extends StatelessWidget {
 
 class _BodyTravelCountryDetails extends StatelessWidget {
   const _BodyTravelCountryDetails({
-    Key? key,
     required this.country,
-  }) : super(key: key);
+  });
 
   final Country country;
 
@@ -56,12 +52,12 @@ class _BodyTravelCountryDetails extends StatelessWidget {
         ),
         SliverToBoxAdapter(
           child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 20.0),
+            padding: const EdgeInsets.symmetric(vertical: 20),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Container(
-                  height: 40.0,
+                SizedBox(
+                  height: 40,
                   child: ListView.builder(
                     scrollDirection: Axis.horizontal,
                     itemCount: categories.length,
@@ -85,9 +81,8 @@ class _BodyTravelCountryDetails extends StatelessWidget {
 
 class _ReviewContent extends StatelessWidget {
   const _ReviewContent({
-    Key? key,
     required this.country,
-  }) : super(key: key);
+  });
 
   final Country country;
 
@@ -95,32 +90,49 @@ class _ReviewContent extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Padding(
-      padding: const EdgeInsets.all(20.0),
+      padding: const EdgeInsets.all(20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
             country.reviewDetail.reviewSubtitle,
-            style: const TextStyle(color: Color(0xff081414), fontSize: 20, fontWeight: FontWeight.bold),
+            style: const TextStyle(
+              color: Color(0xff081414),
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+            ),
           ),
-          const SizedBox(height: 10.0),
+          const SizedBox(height: 10),
           Text(
             country.reviewDetail.reviewContentSubtitle,
-            style: TextStyle(color: const Color(0xff081414).withOpacity(.6), fontSize: 15, fontWeight: FontWeight.w500),
+            style: TextStyle(
+              color: const Color(0xff081414).withOpacity(.6),
+              fontSize: 15,
+              fontWeight: FontWeight.w500,
+            ),
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: 10.0),
+            padding: const EdgeInsets.symmetric(vertical: 10),
             child: Row(
               children: [
-                _IconInformation(icon: 'assets/travel_app/location.svg', value: '${country.reviewDetail.location}'),
-                const SizedBox(width: 10.0),
-                _IconInformation(icon: 'assets/travel_app/heart.svg', value: '${country.reviewDetail.likes} likes'),
-                const SizedBox(width: 10.0),
-                _IconInformation(icon: 'assets/travel_app/show_eye.svg', value: '${country.reviewDetail.views} view'),
+                _IconInformation(
+                  icon: 'assets/travel_app/location.svg',
+                  value: country.reviewDetail.location,
+                ),
+                const SizedBox(width: 10),
+                _IconInformation(
+                  icon: 'assets/travel_app/heart.svg',
+                  value: '${country.reviewDetail.likes} likes',
+                ),
+                const SizedBox(width: 10),
+                _IconInformation(
+                  icon: 'assets/travel_app/show_eye.svg',
+                  value: '${country.reviewDetail.views} view',
+                ),
               ],
             ),
           ),
-          const SizedBox(height: 20.0),
+          const SizedBox(height: 20),
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -131,19 +143,19 @@ class _ReviewContent extends StatelessWidget {
                     width: size.width * .4,
                     hotel: country.reviewDetail.hotels[0],
                   ),
-                  const SizedBox(height: 10.0),
+                  const SizedBox(height: 10),
                   _HotelInformation(
                     height: size.width * .5,
                     width: size.width * .4,
                     hotel: country.reviewDetail.hotels[1],
                   ),
-                  const SizedBox(height: 10.0),
+                  const SizedBox(height: 10),
                   _HotelInformation(
                     height: size.width * .5,
                     width: size.width * .4,
                     hotel: country.reviewDetail.hotels[2],
                   ),
-                  const SizedBox(height: 10.0),
+                  const SizedBox(height: 10),
                   _HotelInformation(
                     height: size.width * .5,
                     width: size.width * .4,
@@ -151,7 +163,7 @@ class _ReviewContent extends StatelessWidget {
                   ),
                 ],
               ),
-              const SizedBox(width: 10.0),
+              const SizedBox(width: 10),
               Column(
                 children: [
                   _HotelInformation(
@@ -159,31 +171,31 @@ class _ReviewContent extends StatelessWidget {
                     width: size.width * .4,
                     hotel: country.reviewDetail.hotels[1],
                   ),
-                  const SizedBox(height: 10.0),
+                  const SizedBox(height: 10),
                   _HotelInformation(
                     height: size.width * .3,
                     width: size.width * .4,
                     hotel: country.reviewDetail.hotels[2],
                   ),
-                  const SizedBox(height: 10.0),
+                  const SizedBox(height: 10),
                   _HotelInformation(
                     height: size.width * .3,
                     width: size.width * .4,
                     hotel: country.reviewDetail.hotels[0],
                   ),
-                  const SizedBox(height: 10.0),
+                  const SizedBox(height: 10),
                   _HotelInformation(
                     height: size.width * .3,
                     width: size.width * .4,
                     hotel: country.reviewDetail.hotels[1],
                   ),
-                  const SizedBox(height: 10.0),
+                  const SizedBox(height: 10),
                   _HotelInformation(
                     height: size.width * .3,
                     width: size.width * .4,
                     hotel: country.reviewDetail.hotels[2],
                   ),
-                  const SizedBox(height: 10.0),
+                  const SizedBox(height: 10),
                   _HotelInformation(
                     height: size.width * .3,
                     width: size.width * .4,
@@ -201,11 +213,10 @@ class _ReviewContent extends StatelessWidget {
 
 class _HotelInformation extends StatelessWidget {
   const _HotelInformation({
-    Key? key,
     required this.height,
     required this.width,
     required this.hotel,
-  }) : super(key: key);
+  });
 
   final double height;
   final double width;
@@ -217,25 +228,33 @@ class _HotelInformation extends StatelessWidget {
       height: height,
       width: width,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(12.0),
+        borderRadius: BorderRadius.circular(12),
         image: DecorationImage(
           image: AssetImage(hotel.image),
           fit: BoxFit.cover,
         ),
       ),
       alignment: Alignment.bottomLeft,
-      padding: const EdgeInsets.all(10.0),
+      padding: const EdgeInsets.all(10),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
             hotel.title,
-            style: const TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
+            style: const TextStyle(
+              color: Colors.white,
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+            ),
           ),
           Text(
             'From \$${hotel.price} night',
-            style: TextStyle(color: Colors.white.withOpacity(.8), fontSize: 13, fontWeight: FontWeight.w500),
+            style: TextStyle(
+              color: Colors.white.withOpacity(.8),
+              fontSize: 13,
+              fontWeight: FontWeight.w500,
+            ),
           ),
         ],
       ),
@@ -245,10 +264,9 @@ class _HotelInformation extends StatelessWidget {
 
 class _IconInformation extends StatelessWidget {
   const _IconInformation({
-    Key? key,
     required this.icon,
     required this.value,
-  }) : super(key: key);
+  });
 
   final String icon;
   final String value;
@@ -259,13 +277,17 @@ class _IconInformation extends StatelessWidget {
       children: [
         SvgPicture.asset(
           icon,
-          height: 20.0,
+          height: 20,
           color: const Color(0xff132D2F).withOpacity(.6),
         ),
-        const SizedBox(width: 2.0),
+        const SizedBox(width: 2),
         Text(
           value,
-          style: TextStyle(color: const Color(0xff132D2F).withOpacity(.6), fontSize: 13, fontWeight: FontWeight.w600),
+          style: TextStyle(
+            color: const Color(0xff132D2F).withOpacity(.6),
+            fontSize: 13,
+            fontWeight: FontWeight.w600,
+          ),
         ),
       ],
     );
@@ -274,12 +296,11 @@ class _IconInformation extends StatelessWidget {
 
 class _CategoryOption extends StatelessWidget {
   const _CategoryOption({
-    Key? key,
     this.isFirst = false,
     this.isFinal = false,
     required this.isSelected,
     required this.category,
-  }) : super(key: key);
+  });
 
   final bool isFirst;
   final bool isFinal;
@@ -290,15 +311,31 @@ class _CategoryOption extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(12.0),
-          color: isFirst ? const Color(0xff132D2F) : const Color(0xffFBFCF9),
-          boxShadow: [BoxShadow(color: const Color(0xff4A4D45).withOpacity(.2), blurRadius: 7, spreadRadius: 2)]),
-      padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
-      margin: EdgeInsets.only(right: isFinal ? 20.0 : 5.0, bottom: 5.0, top: 5.0, left: isFirst ? 20.0 : 5.0),
+        borderRadius: BorderRadius.circular(12),
+        color: isFirst ? const Color(0xff132D2F) : const Color(0xffFBFCF9),
+        boxShadow: [
+          BoxShadow(
+            color: const Color(0xff4A4D45).withOpacity(.2),
+            blurRadius: 7,
+            spreadRadius: 2,
+          )
+        ],
+      ),
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+      margin: EdgeInsets.only(
+        right: isFinal ? 20.0 : 5.0,
+        bottom: 5,
+        top: 5,
+        left: isFirst ? 20.0 : 5.0,
+      ),
       alignment: Alignment.center,
       child: Text(
         category,
-        style: TextStyle(color: isSelected ? Colors.white : const Color(0xff132D2F), fontSize: 15.0, fontWeight: FontWeight.w600),
+        style: TextStyle(
+          color: isSelected ? Colors.white : const Color(0xff132D2F),
+          fontSize: 15,
+          fontWeight: FontWeight.w600,
+        ),
       ),
     );
   }
@@ -314,7 +351,11 @@ class CustomSliverAppBar extends SliverPersistentHeaderDelegate {
   final double expandedHeight;
 
   @override
-  Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
+  Widget build(
+    BuildContext context,
+    double shrinkOffset,
+    bool overlapsContent,
+  ) {
     final size = MediaQuery.of(context).size;
     return Stack(
       clipBehavior: Clip.none,
@@ -346,19 +387,29 @@ class CustomSliverAppBar extends SliverPersistentHeaderDelegate {
             child: Align(
               alignment: Alignment.topLeft,
               child: GestureDetector(
-                onTap: (1 - shrinkOffset * 2 / expandedHeight == 1.0) ? () => Navigator.of(context).pop() : null,
+                onTap: (1 - shrinkOffset * 2 / expandedHeight == 1.0)
+                    ? () => Navigator.of(context).pop()
+                    : null,
                 child: Container(
-                  padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 10.0),
-                  margin: const EdgeInsets.all(20.0),
-                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(12.0), color: Colors.white),
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 12, horizontal: 10),
+                  margin: const EdgeInsets.all(20),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(12),
+                    color: Colors.white,
+                  ),
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       SvgPicture.asset('assets/travel_app/arrow_left.svg'),
-                      const SizedBox(width: 10.0),
+                      const SizedBox(width: 10),
                       const Text(
                         'Back',
-                        style: TextStyle(color: Colors.black, fontWeight: FontWeight.w700, fontSize: 15),
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.w700,
+                          fontSize: 15,
+                        ),
                       ),
                     ],
                   ),
@@ -375,12 +426,12 @@ class CustomSliverAppBar extends SliverPersistentHeaderDelegate {
               tag: 'country-trip-${country.name}',
               flightShuttleBuilder: _flightShuttleBuilder,
               child: Padding(
-                padding: const EdgeInsets.all(20.0),
+                padding: const EdgeInsets.all(20),
                 child: Row(
                   children: [
                     Align(
                       alignment: Alignment.bottomCenter,
-                      child: Container(
+                      child: SizedBox(
                         width: size.width * .7,
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
@@ -388,23 +439,36 @@ class CustomSliverAppBar extends SliverPersistentHeaderDelegate {
                           children: [
                             Text(
                               country.reviewDetail.title,
-                              style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 24),
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 24,
+                              ),
                             ),
                             Text(
                               country.reviewDetail.description,
-                              style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w300, fontSize: 14),
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w300,
+                                fontSize: 14,
+                              ),
                             ),
-                            const SizedBox(height: 10.0),
+                            const SizedBox(height: 10),
                             Row(
                               children: [
                                 CircleAvatar(
                                   radius: size.height * .015,
-                                  backgroundImage: AssetImage(country.reviewerPhoto),
+                                  backgroundImage:
+                                      AssetImage(country.reviewerPhoto),
                                 ),
-                                const SizedBox(width: 10.0),
+                                const SizedBox(width: 10),
                                 Text(
                                   country.reviewer,
-                                  style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w600, fontSize: 13),
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 13,
+                                  ),
                                 ),
                               ],
                             ),
@@ -417,13 +481,13 @@ class CustomSliverAppBar extends SliverPersistentHeaderDelegate {
                         alignment: Alignment.bottomRight,
                         child: Container(
                           decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(16.0),
+                            borderRadius: BorderRadius.circular(16),
                             color: Colors.white,
                           ),
                           width: size.width * .1,
                           height: size.width * .1,
-                          margin: const EdgeInsets.all(10.0),
-                          padding: const EdgeInsets.all(10.0),
+                          margin: const EdgeInsets.all(10),
+                          padding: const EdgeInsets.all(10),
                           child: SvgPicture.asset(
                             'assets/travel_app/heart.svg',
                             fit: BoxFit.fitWidth,

@@ -12,7 +12,8 @@ class BottomBarAppItem {
 }
 
 class BottomBarApp extends StatefulWidget {
-  BottomBarApp({
+  const BottomBarApp({
+    super.key,
     required this.items,
     this.height = 60.0,
     this.iconSize = 24.0,
@@ -47,16 +48,17 @@ class BottomBarAppState extends State<BottomBarApp> {
         elevation: 5,
         color: widget.backgroundColor,
         child: Container(
-          height: 65.0,
-          padding: const EdgeInsets.symmetric(horizontal: 20.0),
+          height: 65,
+          padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Row(
-            mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: List.generate(widget.items.length, (int index) {
               return TabItemBottomBar(
                 item: widget.items[index],
                 index: index,
-                color: widget.selectedIndex == index ? widget.selectedColor : widget.color,
+                color: widget.selectedIndex == index
+                    ? widget.selectedColor
+                    : widget.color,
                 onPressed: (int index) => widget.onTabSelected(index),
                 height: widget.height,
               );
@@ -70,13 +72,13 @@ class BottomBarAppState extends State<BottomBarApp> {
 
 class TabItemBottomBar extends StatelessWidget {
   const TabItemBottomBar({
-    Key? key,
+    super.key,
     required this.item,
     required this.index,
     required this.onPressed,
     required this.color,
     required this.height,
-  }) : super(key: key);
+  });
 
   final BottomBarAppItem item;
   final int index;
@@ -98,18 +100,29 @@ class TabItemBottomBar extends StatelessWidget {
               clipBehavior: Clip.none,
               alignment: Alignment.center,
               children: [
-                SvgPicture.asset(item.icon, height: 25, fit: BoxFit.cover, color: color),
+                SvgPicture.asset(
+                  item.icon,
+                  height: 25,
+                  fit: BoxFit.cover,
+                  color: color,
+                ),
                 if (item.hasNotification)
                   Positioned(
                     right: size.width * .04,
                     top: size.width * .035,
                     child: Container(
-                      decoration: BoxDecoration(shape: BoxShape.circle, color: Theme.of(context).bottomAppBarColor),
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Theme.of(context).bottomAppBarColor,
+                      ),
                       width: size.width * .035,
                       height: size.width * .035,
                       alignment: Alignment.center,
                       child: Container(
-                        decoration: const BoxDecoration(shape: BoxShape.circle, color: Colors.red),
+                        decoration: const BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Colors.red,
+                        ),
                         width: size.width * .025,
                         height: size.width * .025,
                       ),

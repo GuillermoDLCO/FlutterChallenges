@@ -22,7 +22,7 @@ class Routes {
   static const travelCountryDetails = '/travelCountryDetails';
   static const facebookPrincipalScreen = '/facebookPrincipalScreen';
 
-  static Route routes(RouteSettings routeSettings) {
+  static PageRouteBuilder<Widget> routes(RouteSettings routeSettings) {
     print('Route name: ${routeSettings.name}');
     final args = routeSettings.arguments;
 
@@ -42,18 +42,24 @@ class Routes {
       case travelApp:
         return _buildRoute(const TravelHomeScreen());
       case travelCountryDetails:
+        if (args == null) break;
         return _buildRoute(TravelCountryDetails(country: args as Country));
       case facebookPrincipalScreen:
         return _buildRoute(const FacebookPrincipalScreen());
       default:
-        throw PlatformException(code: 'ROUTE_ERROR', message: 'Route does not exists');
     }
+
+    throw PlatformException(
+      code: 'ROUTE_ERROR',
+      message: 'Route does not exists',
+    );
   }
 
-  static PageRouteBuilder _buildRoute(Widget screen) {
-    return PageRouteBuilder(
+  static PageRouteBuilder<Widget> _buildRoute(Widget screen) {
+    return PageRouteBuilder<Widget>(
       pageBuilder: (context, _, __) => screen,
-      transitionsBuilder: (_, Animation<double> animation, __, Widget child) => FadeTransition(opacity: animation, child: child),
+      transitionsBuilder: (_, Animation<double> animation, __, Widget child) =>
+          FadeTransition(opacity: animation, child: child),
     );
   }
 }

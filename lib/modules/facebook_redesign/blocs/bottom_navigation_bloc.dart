@@ -18,9 +18,8 @@ class BottomNavigationBloc extends Cubit<BottomNavigationState> {
 }
 
 class BottomNavigationState extends Equatable {
-  final IndexPage page;
-
   const BottomNavigationState(this.page);
+  final IndexPage page;
 
   @override
   List<Object> get props => [page];

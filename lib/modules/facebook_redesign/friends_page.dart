@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class FriendsPage extends StatelessWidget {
-  const FriendsPage({Key? key}) : super(key: key);
+  const FriendsPage({super.key});
 
   @override
   Widget build(BuildContext context) {

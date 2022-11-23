@@ -1,33 +1,28 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:provider/provider.dart';
-
 import 'package:flutterchallenges/modules/facebook_redesign/blocs/theme_bloc.dart';
 import 'package:flutterchallenges/modules/facebook_redesign/widgets/top_bar_app.dart';
 import 'package:flutterchallenges/theme/app_theme.dart';
 
 class OptionsPage extends StatelessWidget {
-  const OptionsPage({Key? key}) : super(key: key);
+  const OptionsPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-        children: [
-          const TopBarApp(),
-          const SizedBox(height: 20.0),
-          const _MenuSection(),
-        ],
-      ),
+    return Column(
+      children: const [
+        TopBarApp(),
+        SizedBox(height: 20),
+        _MenuSection(),
+      ],
     );
   }
 }
 
 class _MenuSection extends StatelessWidget {
-  const _MenuSection({
-    Key? key,
-  }) : super(key: key);
+  const _MenuSection();
 
   @override
   Widget build(BuildContext context) {
@@ -40,41 +35,62 @@ class _MenuSection extends StatelessWidget {
           ),
           color: Theme.of(context).primaryColor,
         ),
-        padding: const EdgeInsets.only(top: 20.0),
+        padding: const EdgeInsets.only(top: 20),
         child: Column(
           children: [
-            const SizedBox(height: 12.0),
+            const SizedBox(height: 12),
             const _MenuRow(),
             Expanded(
               child: NotificationListener<OverscrollIndicatorNotification>(
                 onNotification: (OverscrollIndicatorNotification overscroll) {
-                  overscroll.disallowGlow();
+                  overscroll.disallowIndicator();
                   return false;
                 },
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
-                      const SizedBox(height: 28.0),
+                      const SizedBox(height: 28),
                       const _ScrollSettingButtons(),
-                      const SizedBox(height: 27.0),
+                      const SizedBox(height: 27),
                       const _ScrollSpecialCards(),
-                      const SizedBox(height: 25.0),
+                      const SizedBox(height: 25),
                       Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
                         child: GridView.count(
                           crossAxisCount: 2,
                           shrinkWrap: true,
-                          childAspectRatio: (MediaQuery.of(context).size.width * .5 - 40.0) / (MediaQuery.of(context).size.width * .15),
-                          crossAxisSpacing: 20.0,
-                          mainAxisSpacing: 20.0,
+                          childAspectRatio:
+                              (MediaQuery.of(context).size.width * .5 - 40.0) /
+                                  (MediaQuery.of(context).size.width * .15),
+                          crossAxisSpacing: 20,
+                          mainAxisSpacing: 20,
                           primary: false,
-                          children: [
-                            const _SettingGridOption(icon: 'assets/facebook_redesign/youtube.svg', label: 'Videos en Watch'),
-                            const _SettingGridOption(icon: 'assets/facebook_redesign/shopping_cart.svg', label: 'Marketplace'),
-                            const _SettingGridOption(icon: 'assets/facebook_redesign/heart.svg', label: 'Parejas'),
-                            const _SettingGridOption(icon: 'assets/facebook_redesign/games.svg', label: 'Videojuegos'),
-                            const _SettingGridOption(icon: 'assets/facebook_redesign/shopping-bag.svg', label: 'Empleos'),
-                            const _SettingGridOption(icon: 'assets/facebook_redesign/bookmark.svg', label: 'Guardados'),
+                          children: const [
+                            _SettingGridOption(
+                              icon: 'assets/facebook_redesign/youtube.svg',
+                              label: 'Videos en Watch',
+                            ),
+                            _SettingGridOption(
+                              icon:
+                                  'assets/facebook_redesign/shopping_cart.svg',
+                              label: 'Marketplace',
+                            ),
+                            _SettingGridOption(
+                              icon: 'assets/facebook_redesign/heart.svg',
+                              label: 'Parejas',
+                            ),
+                            _SettingGridOption(
+                              icon: 'assets/facebook_redesign/games.svg',
+                              label: 'Videojuegos',
+                            ),
+                            _SettingGridOption(
+                              icon: 'assets/facebook_redesign/shopping-bag.svg',
+                              label: 'Empleos',
+                            ),
+                            _SettingGridOption(
+                              icon: 'assets/facebook_redesign/bookmark.svg',
+                              label: 'Guardados',
+                            ),
                           ],
                         ),
                       ),
@@ -93,10 +109,9 @@ class _MenuSection extends StatelessWidget {
 
 class _SettingGridOption extends StatelessWidget {
   const _SettingGridOption({
-    Key? key,
     required this.icon,
     required this.label,
-  }) : super(key: key);
+  });
 
   final String icon;
   final String label;
@@ -108,7 +123,7 @@ class _SettingGridOption extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(21),
-        color: theme.buttonColor,
+        color: theme.colorScheme.primary,
       ),
       padding: EdgeInsets.all(size.width * .05),
       child: Row(
@@ -121,7 +136,11 @@ class _SettingGridOption extends StatelessWidget {
               alignment: Alignment.centerLeft,
               child: Text(
                 label,
-                style: TextStyle(color: theme.textTheme.bodyText1?.color, fontSize: 13, height: 1.3),
+                style: TextStyle(
+                  color: theme.textTheme.bodyText1?.color,
+                  fontSize: 13,
+                  height: 1.3,
+                ),
               ),
             ),
           )
@@ -132,29 +151,28 @@ class _SettingGridOption extends StatelessWidget {
 }
 
 class _ScrollSpecialCards extends StatelessWidget {
-  const _ScrollSpecialCards({
-    Key? key,
-  }) : super(key: key);
+  const _ScrollSpecialCards();
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final size = MediaQuery.of(context).size;
-    return Container(
+    return SizedBox(
       height: MediaQuery.of(context).size.height * .20,
       child: ListView(
         scrollDirection: Axis.horizontal,
         children: [
-          const SizedBox(width: 20.0),
+          const SizedBox(width: 20),
           Container(
             height: size.height * .20,
             width: size.height * .35,
             decoration: BoxDecoration(
               image: const DecorationImage(
-                  fit: BoxFit.cover,
-                  image: AssetImage(
-                    'assets/facebook_redesign/history_saved.png',
-                  )),
+                fit: BoxFit.cover,
+                image: AssetImage(
+                  'assets/facebook_redesign/history_saved.png',
+                ),
+              ),
               borderRadius: BorderRadius.circular(25),
               color: Colors.red,
             ),
@@ -164,7 +182,7 @@ class _ScrollSpecialCards extends StatelessWidget {
                   left: size.height * .015,
                   top: size.height * .015,
                   child: CircleAvatar(
-                    backgroundColor: theme.buttonColor,
+                    backgroundColor: theme.colorScheme.primary,
                     radius: size.width * .04,
                     child: SvgPicture.asset(
                       'assets/facebook_redesign/history.svg',
@@ -180,26 +198,28 @@ class _ScrollSpecialCards extends StatelessWidget {
                       borderRadius: BorderRadius.circular(10),
                       color: const Color(0xffEFF8FD),
                     ),
-                    padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 5.0),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 12, vertical: 5),
                     child: const Text(
                       'Hace 3 años',
-                      style: TextStyle(color: Color(0xff2D3F7B), fontSize: 10.0),
+                      style: TextStyle(color: Color(0xff2D3F7B), fontSize: 10),
                     ),
                   ),
                 ),
               ],
             ),
           ),
-          const SizedBox(width: 10.0),
+          const SizedBox(width: 10),
           Container(
             height: size.height * .20,
             width: size.height * .35,
             decoration: BoxDecoration(
               image: const DecorationImage(
-                  fit: BoxFit.cover,
-                  image: AssetImage(
-                    'assets/facebook_redesign/covid_campaign.png',
-                  )),
+                fit: BoxFit.cover,
+                image: AssetImage(
+                  'assets/facebook_redesign/covid_campaign.png',
+                ),
+              ),
               borderRadius: BorderRadius.circular(25),
               color: Colors.red,
             ),
@@ -210,13 +230,17 @@ class _ScrollSpecialCards extends StatelessWidget {
                   top: size.height * .02,
                   child: const Text(
                     'Centro de información\nCOVID-19',
-                    style: TextStyle(color: Colors.white, fontSize: 15, fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 15,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
               ],
             ),
           ),
-          const SizedBox(width: 20.0),
+          const SizedBox(width: 20),
         ],
       ),
     );
@@ -224,31 +248,36 @@ class _ScrollSpecialCards extends StatelessWidget {
 }
 
 class _MenuRow extends StatelessWidget {
-  const _MenuRow({
-    Key? key,
-  }) : super(key: key);
+  const _MenuRow();
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20.0),
+      padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Row(
         children: [
-          const SizedBox(width: 10.0),
+          const SizedBox(width: 10),
           Text(
             'Menú',
-            style: TextStyle(color: theme.textTheme.bodyText1?.color, fontSize: 25.0, fontWeight: FontWeight.bold),
+            style: TextStyle(
+              color: theme.textTheme.bodyText1?.color,
+              fontSize: 25,
+              fontWeight: FontWeight.bold,
+            ),
           ),
           const Spacer(),
           SvgPicture.asset(
             'assets/facebook_redesign/dark_mode.svg',
             width: MediaQuery.of(context).size.width * .045,
           ),
-          const SizedBox(width: 10.0),
+          const SizedBox(width: 10),
           Text(
             'Modo oscuro',
-            style: TextStyle(color: theme.textTheme.bodyText1?.color, fontSize: 13.0),
+            style: TextStyle(
+              color: theme.textTheme.bodyText1?.color,
+              fontSize: 13,
+            ),
           ),
           const _SwitchThemeMode(),
         ],
@@ -258,29 +287,27 @@ class _MenuRow extends StatelessWidget {
 }
 
 class _ScrollSettingButtons extends StatelessWidget {
-  const _ScrollSettingButtons({
-    Key? key,
-  }) : super(key: key);
+  const _ScrollSettingButtons();
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 30.0,
-      padding: const EdgeInsets.symmetric(horizontal: 20.0),
+      height: 30,
+      padding: const EdgeInsets.symmetric(horizontal: 20),
       child: ListView(
         scrollDirection: Axis.horizontal,
-        children: [
-          const _SettingButton(
+        children: const [
+          _SettingButton(
             icon: 'assets/facebook_redesign/help.svg',
             label: 'Ayuda y soporte',
           ),
-          const SizedBox(width: 10.0),
-          const _SettingButton(
+          SizedBox(width: 10),
+          _SettingButton(
             icon: 'assets/facebook_redesign/settings.svg',
             label: 'Configuración y privacidad',
           ),
-          const SizedBox(width: 10.0),
-          const _SettingButton(
+          SizedBox(width: 10),
+          _SettingButton(
             icon: 'assets/facebook_redesign/camera.svg',
             label: 'Privacidad Multimedia',
           ),
@@ -292,10 +319,9 @@ class _ScrollSettingButtons extends StatelessWidget {
 
 class _SettingButton extends StatelessWidget {
   const _SettingButton({
-    Key? key,
     required this.icon,
     required this.label,
-  }) : super(key: key);
+  });
 
   final String icon;
   final String label;
@@ -307,20 +333,23 @@ class _SettingButton extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(7),
-        color: theme.buttonColor,
+        color: theme.colorScheme.primary,
       ),
       alignment: Alignment.center,
-      padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 5.0),
+      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
       child: Row(
         mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           SvgPicture.asset(icon, width: size.width * .04),
-          const SizedBox(width: 10.0),
+          const SizedBox(width: 10),
           Text(
             label,
-            style: TextStyle(color: theme.textTheme.bodyText1?.color, fontSize: 12, height: 1.3),
+            style: TextStyle(
+              color: theme.textTheme.bodyText1?.color,
+              fontSize: 12,
+              height: 1.3,
+            ),
           )
         ],
       ),
@@ -329,9 +358,7 @@ class _SettingButton extends StatelessWidget {
 }
 
 class _SwitchThemeMode extends StatefulWidget {
-  const _SwitchThemeMode({
-    Key? key,
-  }) : super(key: key);
+  const _SwitchThemeMode();
 
   @override
   __SwitchThemeModeState createState() => __SwitchThemeModeState();
@@ -340,7 +367,7 @@ class _SwitchThemeMode extends StatefulWidget {
 class __SwitchThemeModeState extends State<_SwitchThemeMode> {
   bool currentStatus = false;
 
-  void changeStatus(bool status) {
+  void changeStatus({required bool status}) {
     setState(() {
       currentStatus = status;
     });
@@ -355,8 +382,8 @@ class __SwitchThemeModeState extends State<_SwitchThemeMode> {
         activeColor: const Color(0xff1977F4),
         value: currentStatus,
         onChanged: (status) {
-          themeBloc.changeTheme(status ? AppTheme.Dark : AppTheme.Light);
-          changeStatus(status);
+          themeBloc.changeTheme(status ? AppTheme.dark : AppTheme.light);
+          changeStatus(status: status);
         },
       ),
     );

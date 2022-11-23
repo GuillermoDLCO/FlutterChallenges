@@ -3,8 +3,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 class TopBar extends StatelessWidget {
   const TopBar({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -13,24 +13,31 @@ class TopBar extends StatelessWidget {
         Align(
           alignment: Alignment.centerLeft,
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 20.0),
+            padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
             child: SvgPicture.asset('assets/space_concept/menu.svg'),
           ),
         ),
         Padding(
-          padding: const EdgeInsets.symmetric(vertical: 18.0),
+          padding: const EdgeInsets.symmetric(vertical: 18),
           child: Row(
-            mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              const Text(
+            children: const [
+              Text(
                 'Space',
-                style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold, fontFamily: 'Mark', color: Colors.white),
+                style: TextStyle(
+                  fontSize: 25,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: 'Mark',
+                  color: Colors.white,
+                ),
               ),
-              const Text(
+              Text(
                 'Element',
-                style: TextStyle(fontSize: 25, fontFamily: 'Mark', color: Colors.white),
+                style: TextStyle(
+                  fontSize: 25,
+                  fontFamily: 'Mark',
+                  color: Colors.white,
+                ),
               ),
             ],
           ),

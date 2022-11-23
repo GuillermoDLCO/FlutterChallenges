@@ -1,22 +1,20 @@
 import 'package:flutter/material.dart';
 
 enum AppTheme {
-  Normal,
-  Light,
-  Dark,
+  normal,
+  light,
+  dark,
 }
 
 final appThemeData = {
-  AppTheme.Normal: ThemeData(
+  AppTheme.normal: ThemeData(
     primarySwatch: Colors.blue,
     visualDensity: VisualDensity.adaptivePlatformDensity,
   ),
-  AppTheme.Light: ThemeData(
+  AppTheme.light: ThemeData(
     fontFamily: 'Hybi11-Amigo',
     primaryColor: const Color(0xffffffff),
     backgroundColor: const Color(0xffF6F8FA),
-    buttonColor: const Color(0xffF8F9FA),
-    accentColor: const Color(0xff2D3F7B),
     bottomAppBarColor: Colors.white,
     highlightColor: const Color(0xff1977F3),
     hoverColor: const Color(0xff2D3F7B),
@@ -26,13 +24,15 @@ final appThemeData = {
       headline1: TextStyle(color: Color(0xff19295C)),
       headline6: TextStyle(color: Color(0xffBABDC9)),
     ),
+    colorScheme: ColorScheme.fromSwatch().copyWith(
+      primary: const Color(0xffF8F9FA),
+      secondary: const Color(0xff2D3F7B),
+    ),
   ),
-  AppTheme.Dark: ThemeData(
+  AppTheme.dark: ThemeData(
     fontFamily: 'Hybi11-Amigo',
     primaryColor: const Color(0xff232935),
     backgroundColor: const Color(0xff080E1D),
-    buttonColor: const Color(0xff2A303B),
-    accentColor: Colors.white,
     bottomAppBarColor: const Color(0xff080E1D),
     highlightColor: Colors.white,
     hoverColor: const Color(0xff282E39),
@@ -41,6 +41,10 @@ final appThemeData = {
       bodyText2: TextStyle(color: Colors.white),
       headline1: TextStyle(color: Colors.white),
       headline6: TextStyle(color: Color(0xffBABDC9)),
+    ),
+    colorScheme: ColorScheme.fromSwatch().copyWith(
+      primary: const Color(0xff2A303B),
+      secondary: Colors.white,
     ),
   ),
 };

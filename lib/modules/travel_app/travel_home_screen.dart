@@ -9,7 +9,7 @@ import 'package:flutterchallenges/modules/travel_app/travel_app_bloc.dart';
 import 'package:flutterchallenges/navigation/routes.dart';
 
 class TravelHomeScreen extends StatelessWidget {
-  const TravelHomeScreen({Key? key}) : super(key: key);
+  const TravelHomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -40,25 +40,26 @@ class TravelHomeScreen extends StatelessWidget {
 }
 
 class _BottomBar extends StatelessWidget {
-  const _BottomBar({
-    Key? key,
-  }) : super(key: key);
+  const _BottomBar();
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 5.0),
+      margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
       height: size.height * .07,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(300),
         color: const Color(0xfff37f10),
       ),
       child: Row(
-        children: [
-          const _BottomBarItem(icon: 'assets/travel_app/explore.svg', isSelected: true),
-          const _BottomBarItem(icon: 'assets/travel_app/star.svg'),
-          const _BottomBarItem(icon: 'assets/travel_app/profile.svg'),
+        children: const [
+          _BottomBarItem(
+            icon: 'assets/travel_app/explore.svg',
+            isSelected: true,
+          ),
+          _BottomBarItem(icon: 'assets/travel_app/star.svg'),
+          _BottomBarItem(icon: 'assets/travel_app/profile.svg'),
         ],
       ),
     );
@@ -67,10 +68,9 @@ class _BottomBar extends StatelessWidget {
 
 class _BottomBarItem extends StatelessWidget {
   const _BottomBarItem({
-    Key? key,
     required this.icon,
     this.isSelected = false,
-  }) : super(key: key);
+  });
 
   final String icon;
   final bool isSelected;
@@ -81,9 +81,12 @@ class _BottomBarItem extends StatelessWidget {
     return Expanded(
       child: Container(
         height: size.height * .05,
-        margin: const EdgeInsets.symmetric(horizontal: 10.0),
+        margin: const EdgeInsets.symmetric(horizontal: 10),
         alignment: Alignment.center,
-        decoration: BoxDecoration(borderRadius: BorderRadius.circular(300), color: isSelected ? Colors.white : Colors.transparent),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(300),
+          color: isSelected ? Colors.white : Colors.transparent,
+        ),
         child: SvgPicture.asset(
           icon,
           fit: BoxFit.fitHeight,
@@ -95,9 +98,7 @@ class _BottomBarItem extends StatelessWidget {
 }
 
 class _TravelHomeBody extends StatelessWidget {
-  const _TravelHomeBody({
-    Key? key,
-  }) : super(key: key);
+  const _TravelHomeBody();
 
   @override
   Widget build(BuildContext context) {
@@ -109,10 +110,14 @@ class _TravelHomeBody extends StatelessWidget {
           children: [
             const _TopAppBar(),
             const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 5.0),
+              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
               child: Text(
                 'New Articles',
-                style: TextStyle(color: Color(0xff321F0E), fontWeight: FontWeight.w600, fontSize: 15),
+                style: TextStyle(
+                  color: Color(0xff321F0E),
+                  fontWeight: FontWeight.w600,
+                  fontSize: 15,
+                ),
               ),
             ),
             const _CountryTopSelection(),
@@ -127,9 +132,7 @@ class _TravelHomeBody extends StatelessWidget {
 }
 
 class _CountryTopSelection extends StatefulWidget {
-  const _CountryTopSelection({
-    Key? key,
-  }) : super(key: key);
+  const _CountryTopSelection();
 
   @override
   __CountryTopSelectionState createState() => __CountryTopSelectionState();
@@ -137,7 +140,7 @@ class _CountryTopSelection extends StatefulWidget {
 
 class __CountryTopSelectionState extends State<_CountryTopSelection> {
   final ScrollController scrollController = ScrollController();
-  double lastPosition = 0.0;
+  double lastPosition = 0;
 
   @override
   void initState() {
@@ -154,7 +157,9 @@ class __CountryTopSelectionState extends State<_CountryTopSelection> {
           if (state is TravelAppUpdateTopScrollPositionState) {
             scrollController
                 .animateTo(
-                  state.position.toDouble() * MediaQuery.of(context).size.height * .13,
+                  state.position.toDouble() *
+                      MediaQuery.of(context).size.height *
+                      .13,
                   duration: const Duration(milliseconds: 500),
                   curve: Curves.easeIn,
                 )
@@ -168,7 +173,8 @@ class __CountryTopSelectionState extends State<_CountryTopSelection> {
             itemCount: bloc.countries.length,
             itemBuilder: (context, index) => _CountryOptionTab(
               country: bloc.countries[index],
-              isSelected: bloc.countries[index].name == bloc.selectedCountry.name,
+              isSelected:
+                  bloc.countries[index].name == bloc.selectedCountry.name,
               onChange: () {
                 scrollController.animateTo(
                   index.toDouble() * MediaQuery.of(context).size.height * .13,
@@ -186,17 +192,15 @@ class __CountryTopSelectionState extends State<_CountryTopSelection> {
 }
 
 class _CountryTravelCarousel extends StatefulWidget {
-  const _CountryTravelCarousel({
-    Key? key,
-  }) : super(key: key);
+  const _CountryTravelCarousel();
 
   @override
   __CountryTravelCarouselState createState() => __CountryTravelCarouselState();
 }
 
 class __CountryTravelCarouselState extends State<_CountryTravelCarousel> {
-  final PageController pageController = PageController(viewportFraction: .83, initialPage: 0);
-  double lastPosition = 0.0;
+  final PageController pageController = PageController(viewportFraction: .83);
+  double lastPosition = 0;
   bool enableChangeScrollPosition = true;
   @override
   void initState() {
@@ -211,8 +215,9 @@ class __CountryTravelCarouselState extends State<_CountryTravelCarousel> {
 
   @override
   void dispose() {
-    pageController.removeListener(listener);
-    pageController.dispose();
+    pageController
+      ..removeListener(listener)
+      ..dispose();
     super.dispose();
   }
 
@@ -225,7 +230,11 @@ class __CountryTravelCarouselState extends State<_CountryTravelCarousel> {
         listener: (context, state) {
           if (state is TravelAppUpdateCarouselScrollPositionState) {
             pageController
-                .animateToPage(state.position, duration: const Duration(milliseconds: 500), curve: Curves.easeIn)
+                .animateToPage(
+                  state.position,
+                  duration: const Duration(milliseconds: 500),
+                  curve: Curves.easeIn,
+                )
                 .then((value) => bloc.finishUpdateCountry());
           }
         },
@@ -233,7 +242,8 @@ class __CountryTravelCarouselState extends State<_CountryTravelCarousel> {
           return PageView.builder(
             controller: pageController,
             itemCount: bloc.countries.length,
-            onPageChanged: (index) => bloc.changeCountry(bloc.countries[index], isCarousel: true),
+            onPageChanged: (index) =>
+                bloc.changeCountry(bloc.countries[index], isCarousel: true),
             itemBuilder: (context, index) {
               final country = bloc.countries[index];
               var scale = lerpDouble(1, .9, index - lastPosition) ?? 0.0;
@@ -245,10 +255,17 @@ class __CountryTravelCarouselState extends State<_CountryTravelCarousel> {
               return GestureDetector(
                 onTap: () {
                   if (pageController.page == index.toDouble()) {
-                    Navigator.of(context).pushNamed(Routes.travelCountryDetails, arguments: country);
+                    Navigator.of(context).pushNamed(
+                      Routes.travelCountryDetails,
+                      arguments: country,
+                    );
                   } else {
                     bloc.changeCountry(bloc.countries[index], isCarousel: true);
-                    pageController.animateToPage(index, duration: const Duration(milliseconds: 500), curve: Curves.easeIn);
+                    pageController.animateToPage(
+                      index,
+                      duration: const Duration(milliseconds: 500),
+                      curve: Curves.easeIn,
+                    );
                   }
                 },
                 child: Transform(
@@ -264,8 +281,11 @@ class __CountryTravelCarouselState extends State<_CountryTravelCarousel> {
                             width: size.width * .9,
                             alignment: Alignment.bottomLeft,
                             decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(24.0),
-                              image: DecorationImage(image: AssetImage(country.image), fit: BoxFit.fitHeight),
+                              borderRadius: BorderRadius.circular(24),
+                              image: DecorationImage(
+                                image: AssetImage(country.image),
+                                fit: BoxFit.fitHeight,
+                              ),
                             ),
                           ),
                         ),
@@ -275,30 +295,45 @@ class __CountryTravelCarouselState extends State<_CountryTravelCarousel> {
                             tag: 'country-trip-${country.name}',
                             flightShuttleBuilder: _flightShuttleBuilder,
                             child: Padding(
-                              padding: const EdgeInsets.all(20.0),
+                              padding: const EdgeInsets.all(20),
                               child: Column(
                                 mainAxisSize: MainAxisSize.min,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
                                     country.reviewDetail.title,
-                                    style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 24),
+                                    style: const TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 24,
+                                    ),
                                   ),
                                   Text(
                                     country.reviewDetail.description,
-                                    style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w300, fontSize: 14),
+                                    style: const TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w300,
+                                      fontSize: 14,
+                                    ),
                                   ),
-                                  const SizedBox(height: 10.0),
+                                  const SizedBox(height: 10),
                                   Row(
                                     children: [
                                       CircleAvatar(
-                                        radius: MediaQuery.of(context).size.height * .015,
-                                        backgroundImage: AssetImage(country.reviewerPhoto),
+                                        radius:
+                                            MediaQuery.of(context).size.height *
+                                                .015,
+                                        backgroundImage:
+                                            AssetImage(country.reviewerPhoto),
                                       ),
-                                      const SizedBox(width: 10.0),
+                                      const SizedBox(width: 10),
                                       Text(
                                         country.reviewer,
-                                        style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w600, fontSize: 13),
+                                        style: const TextStyle(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 13,
+                                        ),
                                       ),
                                     ],
                                   ),
@@ -334,9 +369,7 @@ class __CountryTravelCarouselState extends State<_CountryTravelCarousel> {
 }
 
 class _SearchFilter extends StatelessWidget {
-  const _SearchFilter({
-    Key? key,
-  }) : super(key: key);
+  const _SearchFilter();
 
   @override
   Widget build(BuildContext context) {
@@ -345,41 +378,48 @@ class _SearchFilter extends StatelessWidget {
       children: [
         Expanded(
           child: Container(
-            padding: const EdgeInsets.all(10.0),
-            margin: const EdgeInsets.only(left: 20.0, right: 5.0, top: 10.0, bottom: 10.0),
+            padding: const EdgeInsets.all(10),
+            margin:
+                const EdgeInsets.only(left: 20, right: 5, top: 10, bottom: 10),
             height: size.height * .06,
             decoration: BoxDecoration(
               color: const Color(0xffFAE5D2),
-              borderRadius: BorderRadius.circular(12.0),
+              borderRadius: BorderRadius.circular(12),
             ),
             child: Row(
               children: [
                 SvgPicture.asset('assets/travel_app/search.svg'),
                 const Expanded(
-                    child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 5.0),
-                  child: FittedBox(
-                    fit: BoxFit.scaleDown,
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      'Search country or list',
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(color: Color(0xffEDA47E), fontSize: 15, fontFamily: 'SF-Pro-Text'),
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 5),
+                    child: FittedBox(
+                      fit: BoxFit.scaleDown,
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        'Search country or list',
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          color: Color(0xffEDA47E),
+                          fontSize: 15,
+                          fontFamily: 'SF-Pro-Text',
+                        ),
+                      ),
                     ),
                   ),
-                )),
+                ),
               ],
             ),
           ),
         ),
         Container(
-          padding: const EdgeInsets.all(10.0),
-          margin: const EdgeInsets.only(left: 5.0, right: 20.0, top: 10.0, bottom: 10.0),
+          padding: const EdgeInsets.all(10),
+          margin:
+              const EdgeInsets.only(left: 5, right: 20, top: 10, bottom: 10),
           height: size.height * .06,
           width: size.height * .06,
           decoration: BoxDecoration(
             color: const Color(0xffFAE5D2),
-            borderRadius: BorderRadius.circular(12.0),
+            borderRadius: BorderRadius.circular(12),
           ),
           child: SvgPicture.asset('assets/travel_app/filter.svg'),
         ),
@@ -390,11 +430,10 @@ class _SearchFilter extends StatelessWidget {
 
 class _CountryOptionTab extends StatelessWidget {
   const _CountryOptionTab({
-    Key? key,
     required this.country,
     required this.isSelected,
     required this.onChange,
-  }) : super(key: key);
+  });
 
   final Country country;
   final bool isSelected;
@@ -405,26 +444,31 @@ class _CountryOptionTab extends StatelessWidget {
     return GestureDetector(
       onTap: onChange,
       child: Align(
-        alignment: Alignment.center,
         child: Container(
           decoration: BoxDecoration(
-            border: Border.all(color: isSelected ? Colors.red : Colors.transparent),
-            borderRadius: BorderRadius.circular(12.0),
+            border:
+                Border.all(color: isSelected ? Colors.red : Colors.transparent),
+            borderRadius: BorderRadius.circular(12),
           ),
-          padding: const EdgeInsets.all(3.0),
-          margin: const EdgeInsets.symmetric(horizontal: 4.0),
+          padding: const EdgeInsets.all(3),
+          margin: const EdgeInsets.symmetric(horizontal: 4),
           child: AnimatedContainer(
             duration: const Duration(milliseconds: 500),
             curve: Curves.easeIn,
             width: MediaQuery.of(context).size.height * .13,
-            height: isSelected ? MediaQuery.of(context).size.height * .15 : MediaQuery.of(context).size.height * .13,
+            height: isSelected
+                ? MediaQuery.of(context).size.height * .15
+                : MediaQuery.of(context).size.height * .13,
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(12.0),
-              image: DecorationImage(image: AssetImage(country.image), fit: BoxFit.fill),
+              borderRadius: BorderRadius.circular(12),
+              image: DecorationImage(
+                image: AssetImage(country.image),
+                fit: BoxFit.fill,
+              ),
             ),
             alignment: Alignment.bottomLeft,
             child: Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(8),
               child: Text(
                 country.name,
                 style: TextStyle(
@@ -442,16 +486,13 @@ class _CountryOptionTab extends StatelessWidget {
 }
 
 class _TopAppBar extends StatelessWidget {
-  const _TopAppBar({
-    Key? key,
-  }) : super(key: key);
+  const _TopAppBar();
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20.0),
+      padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Row(
-        mainAxisSize: MainAxisSize.max,
         children: [
           const _ProfileAvatar(),
           Column(
@@ -459,11 +500,19 @@ class _TopAppBar extends StatelessWidget {
             children: [
               Text(
                 'WELCOME BACK',
-                style: TextStyle(color: const Color(0xff321F0E).withOpacity(.6), fontWeight: FontWeight.w600, fontSize: 12),
+                style: TextStyle(
+                  color: const Color(0xff321F0E).withOpacity(.6),
+                  fontWeight: FontWeight.w600,
+                  fontSize: 12,
+                ),
               ),
               const Text(
                 'Ariana Grinder',
-                style: TextStyle(color: Color(0xff321F0E), fontWeight: FontWeight.w600, fontSize: 15),
+                style: TextStyle(
+                  color: Color(0xff321F0E),
+                  fontWeight: FontWeight.w600,
+                  fontSize: 15,
+                ),
               ),
             ],
           )
@@ -474,15 +523,13 @@ class _TopAppBar extends StatelessWidget {
 }
 
 class _ProfileAvatar extends StatelessWidget {
-  const _ProfileAvatar({
-    Key? key,
-  }) : super(key: key);
+  const _ProfileAvatar();
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Padding(
-      padding: const EdgeInsets.only(right: 10.0, top: 10.0, bottom: 10.0),
+      padding: const EdgeInsets.only(right: 10, top: 10, bottom: 10),
       child: Stack(
         clipBehavior: Clip.none,
         children: [
@@ -522,9 +569,7 @@ class _ProfileAvatar extends StatelessWidget {
 }
 
 class _BackgroundRoundedContainer extends StatelessWidget {
-  const _BackgroundRoundedContainer({
-    Key? key,
-  }) : super(key: key);
+  const _BackgroundRoundedContainer();
 
   @override
   Widget build(BuildContext context) {

@@ -3,13 +3,12 @@ import 'package:flutterchallenges/theme/pallete_color.dart';
 
 class MultipleFAB extends StatefulWidget {
   const MultipleFAB({
-    Key? key,
+    super.key,
     required this.icons,
     required AnimationController controller,
     required this.backgroundColor,
     required this.actionFirstButton,
-  })   : _controller = controller,
-        super(key: key);
+  }) : _controller = controller;
 
   final List<Widget> icons;
   final AnimationController _controller;
@@ -17,28 +16,50 @@ class MultipleFAB extends StatefulWidget {
   final VoidCallback actionFirstButton;
 
   @override
-  _MultipleFABState createState() => _MultipleFABState();
+  State<MultipleFAB> createState() => _MultipleFABState();
 }
 
 class _MultipleFABState extends State<MultipleFAB> {
   late AnimationController animationController;
-  late Animation degOneTranslationAnimation, degTwoTranslationAnimation, degThreeTranslationAnimation;
-  late Animation rotationAnimation;
-  late Animation rotationAnimationPrincipalButton;
+  late Animation<double> degOneTranslationAnimation;
+  late Animation<double> degTwoTranslationAnimation;
+  late Animation<double> degThreeTranslationAnimation;
+  late Animation<double> rotationAnimation;
+  late Animation<double> rotationAnimationPrincipalButton;
 
   @override
   void initState() {
     animationController = widget._controller;
     degOneTranslationAnimation = TweenSequence([
-      TweenSequenceItem<double>(tween: Tween<double>(begin: 0.0, end: 1.0), weight: 75.0),
-      TweenSequenceItem<double>(tween: Tween<double>(begin: 1.0, end: 1.0), weight: 25.0),
+      TweenSequenceItem<double>(
+        tween: Tween<double>(begin: 0, end: 1),
+        weight: 75,
+      ),
+      TweenSequenceItem<double>(
+        tween: Tween<double>(begin: 1, end: 1),
+        weight: 25,
+      ),
     ]).animate(widget._controller);
     degTwoTranslationAnimation = TweenSequence([
-      TweenSequenceItem<double>(tween: Tween<double>(begin: 0.0, end: 1.0), weight: 55.0),
-      TweenSequenceItem<double>(tween: Tween<double>(begin: 1.0, end: 1.0), weight: 45.0),
+      TweenSequenceItem<double>(
+        tween: Tween<double>(begin: 0, end: 1),
+        weight: 55,
+      ),
+      TweenSequenceItem<double>(
+        tween: Tween<double>(begin: 1, end: 1),
+        weight: 45,
+      ),
     ]).animate(widget._controller);
-    rotationAnimation = Tween<double>(begin: 180.0, end: 0.0).animate(CurvedAnimation(parent: animationController, curve: Curves.easeOut));
-    rotationAnimationPrincipalButton = Tween<double>(begin: 180.0, end: 45.0).animate(CurvedAnimation(parent: animationController, curve: Curves.easeOut));
+    rotationAnimation = Tween<double>(begin: 180, end: 0).animate(
+      CurvedAnimation(parent: animationController, curve: Curves.easeOut),
+    );
+    rotationAnimationPrincipalButton =
+        Tween<double>(begin: 180, end: 45).animate(
+      CurvedAnimation(
+        parent: animationController,
+        curve: Curves.easeOut,
+      ),
+    );
     super.initState();
     animationController.addListener(() {
       setState(() {});
@@ -46,7 +67,7 @@ class _MultipleFABState extends State<MultipleFAB> {
   }
 
   double getRadiansFromIndex(int index, {bool is3items = false}) {
-    final unitRadian = 57.295779513;
+    const unitRadian = 57.295779513;
     double degree;
     switch (index) {
       case 0:
@@ -68,7 +89,7 @@ class _MultipleFABState extends State<MultipleFAB> {
   }
 
   double getRadiansFromDegree(double degree) {
-    final unitRadian = 57.295779513;
+    const unitRadian = 57.295779513;
     return degree / unitRadian;
   }
 
@@ -81,49 +102,58 @@ class _MultipleFABState extends State<MultipleFAB> {
       alignment: Alignment.center,
       children: <Widget>[
         IgnorePointer(
-          ignoring: true,
           child: Container(
             // color: Colors.black.withOpacity(0.4),
             color: Colors.transparent,
-            width: 130.0,
-            height: 130.0,
+            width: 130,
+            height: 130,
           ),
         ),
         ...List.generate(widget.icons.length, (int index) {
-          Widget child = SizedBox(
-              width: 40.0,
-              child: FloatingActionButton(
-                heroTag: null,
-                backgroundColor: widget.backgroundColor,
-                onPressed: () {},
-                child: widget.icons[index],
-              ));
+          final Widget child = SizedBox(
+            width: 40,
+            child: FloatingActionButton(
+              heroTag: null,
+              backgroundColor: widget.backgroundColor,
+              onPressed: () {},
+              child: widget.icons[index],
+            ),
+          );
 
           return Transform.translate(
-            offset: Offset.fromDirection(getRadiansFromIndex(index, is3items: is3Widgets), degTwoTranslationAnimation.value * 60),
+            offset: Offset.fromDirection(
+              getRadiansFromIndex(index, is3items: is3Widgets),
+              degTwoTranslationAnimation.value * 60,
+            ),
             child: Transform(
-              transform: Matrix4.rotationZ(getRadiansFromDegree(rotationAnimation.value))..scale(degTwoTranslationAnimation.value),
+              transform: Matrix4.rotationZ(
+                getRadiansFromDegree(rotationAnimation.value),
+              )..scale(degTwoTranslationAnimation.value),
               alignment: Alignment.center,
               child: child,
             ),
           );
         }).toList()
-          ..add(Transform(
-            transform: Matrix4.rotationZ(getRadiansFromDegree(rotationAnimationPrincipalButton.value)),
-            alignment: Alignment.center,
-            child: FloatingActionButton(
-              heroTag: null,
-              backgroundColor: PalleteColor.actionButtonColor,
-              onPressed: () {
-                if (animationController.isDismissed) {
-                  animationController.forward();
-                } else {
-                  animationController.reverse();
-                }
-              },
-              child: const Icon(Icons.add, size: 30.0),
+          ..add(
+            Transform(
+              transform: Matrix4.rotationZ(
+                getRadiansFromDegree(rotationAnimationPrincipalButton.value),
+              ),
+              alignment: Alignment.center,
+              child: FloatingActionButton(
+                heroTag: null,
+                backgroundColor: PalleteColor.actionButtonColor,
+                onPressed: () {
+                  if (animationController.isDismissed) {
+                    animationController.forward();
+                  } else {
+                    animationController.reverse();
+                  }
+                },
+                child: const Icon(Icons.add, size: 30),
+              ),
             ),
-          ))
+          )
       ],
     );
   }

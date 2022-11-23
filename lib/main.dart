@@ -6,11 +6,13 @@ import 'package:flutterchallenges/navigation/routes.dart';
 void main() => runApp(
       BlocProvider(
         create: (context) => ThemeBloc(),
-        child: MyApp(),
+        child: const MyApp(),
       ),
     );
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ThemeBloc, ThemeState>(
@@ -19,7 +21,7 @@ class MyApp extends StatelessWidget {
           title: 'Flutter Demo',
           theme: state.theme,
           debugShowCheckedModeBanner: false,
-          onGenerateRoute: (RouteSettings settings) => Routes.routes(settings),
+          onGenerateRoute: Routes.routes,
         );
       },
     );

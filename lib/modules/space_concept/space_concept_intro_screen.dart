@@ -4,7 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutterchallenges/navigation/routes.dart';
 
 class SpaceConceptIntroScreen extends StatelessWidget {
-  const SpaceConceptIntroScreen({Key? key}) : super(key: key);
+  const SpaceConceptIntroScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -28,53 +28,70 @@ class SpaceConceptIntroScreen extends StatelessWidget {
 }
 
 class _HomeBody extends StatelessWidget {
-  const _HomeBody({
-    Key? key,
-  }) : super(key: key);
+  const _HomeBody();
 
   @override
   Widget build(BuildContext context) {
     return Stack(
-      children: [
-        const _BackgroundPlanet(),
-        const _SpaceExplorationDescription(),
+      children: const [
+        _BackgroundPlanet(),
+        _SpaceExplorationDescription(),
       ],
     );
   }
 }
 
 class _SpaceExplorationDescription extends StatelessWidget {
-  const _SpaceExplorationDescription({
-    Key? key,
-  }) : super(key: key);
+  const _SpaceExplorationDescription();
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width * .1),
+      padding: EdgeInsets.symmetric(
+        horizontal: MediaQuery.of(context).size.width * .1,
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const SizedBox(height: 20.0),
-          const _CloseButton(),
-          const SizedBox(height: 20.0),
-          const Text(
+        children: const [
+          SizedBox(height: 20),
+          _CloseButton(),
+          SizedBox(height: 20),
+          Text(
             'Space',
-            style: TextStyle(fontSize: 45, fontWeight: FontWeight.bold, fontFamily: 'Mark', color: Colors.white),
+            style: TextStyle(
+              fontSize: 45,
+              fontWeight: FontWeight.bold,
+              fontFamily: 'Mark',
+              color: Colors.white,
+            ),
           ),
-          const Text(
+          Text(
             'Exploration',
-            style: TextStyle(fontSize: 45, fontFamily: 'Mark', color: Colors.white),
+            style: TextStyle(
+              fontSize: 45,
+              fontFamily: 'Mark',
+              color: Colors.white,
+            ),
           ),
-          const SizedBox(height: 20),
-          const Text(
-            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Habitant sem ut sit fames in adipiscing. Ac magna donec egestas habitant.',
-            style: TextStyle(fontSize: 12, fontFamily: 'Mark', color: Colors.white),
+          SizedBox(height: 20),
+          Text(
+            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Habitant '
+            'sem ut sit fames in adipiscing. Ac magna donec egestas habitant.',
+            style: TextStyle(
+              fontSize: 12,
+              fontFamily: 'Mark',
+              color: Colors.white,
+            ),
           ),
-          const SizedBox(height: 40),
-          const Text(
+          SizedBox(height: 40),
+          Text(
             'View More',
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, fontFamily: 'Mark', color: Colors.white),
+            style: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+              fontFamily: 'Mark',
+              color: Colors.white,
+            ),
           ),
         ],
       ),
@@ -83,9 +100,7 @@ class _SpaceExplorationDescription extends StatelessWidget {
 }
 
 class _BackgroundPlanet extends StatelessWidget {
-  const _BackgroundPlanet({
-    Key? key,
-  }) : super(key: key);
+  const _BackgroundPlanet();
 
   @override
   Widget build(BuildContext context) {
@@ -95,26 +110,33 @@ class _BackgroundPlanet extends StatelessWidget {
         alignment: Alignment.bottomCenter,
         children: [
           Container(
-            alignment: const Alignment(0.0, 1.5),
+            alignment: const Alignment(0, 1.5),
             child: Image.asset(
               'assets/space_concept/space_exploration_planet.png',
               fit: BoxFit.fitWidth,
             ),
           ),
           Positioned(
-            bottom: 30.0,
+            bottom: 30,
             child: Row(
-              mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                const Text(
+              children: const [
+                Text(
                   'Space',
-                  style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold, fontFamily: 'Mark', color: Colors.white),
+                  style: TextStyle(
+                    fontSize: 25,
+                    fontWeight: FontWeight.bold,
+                    fontFamily: 'Mark',
+                    color: Colors.white,
+                  ),
                 ),
-                const Text(
+                Text(
                   'Element',
-                  style: TextStyle(fontSize: 25, fontFamily: 'Mark', color: Colors.white),
+                  style: TextStyle(
+                    fontSize: 25,
+                    fontFamily: 'Mark',
+                    color: Colors.white,
+                  ),
                 ),
               ],
             ),
@@ -126,9 +148,7 @@ class _BackgroundPlanet extends StatelessWidget {
 }
 
 class _CloseButton extends StatelessWidget {
-  const _CloseButton({
-    Key? key,
-  }) : super(key: key);
+  const _CloseButton();
 
   @override
   Widget build(BuildContext context) {
@@ -136,10 +156,10 @@ class _CloseButton extends StatelessWidget {
       width: double.infinity,
       alignment: Alignment.centerRight,
       child: GestureDetector(
-        onTap: () => Navigator.of(context).pushNamed(Routes.spaceConceptPrincipal),
+        onTap: () =>
+            Navigator.of(context).pushNamed(Routes.spaceConceptPrincipal),
         child: SvgPicture.asset(
           'assets/space_concept/close.svg',
-          fit: BoxFit.contain,
         ),
       ),
     );

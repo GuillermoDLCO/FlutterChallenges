@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 
 class PickToExplore extends StatelessWidget {
   const PickToExplore({
-    Key? key,
+    super.key,
     required this.number,
     required this.action,
     this.marginPosition,
     this.radius = 15.0,
-  }) : super(key: key);
+  });
   final int number;
   final VoidCallback action;
   final EdgeInsets? marginPosition;
@@ -26,7 +26,12 @@ class PickToExplore extends StatelessWidget {
             radius: radius,
             child: Text(
               '$number',
-              style: const TextStyle(fontSize: 16, fontFamily: 'Mark', color: Colors.white, fontWeight: FontWeight.bold),
+              style: const TextStyle(
+                fontSize: 16,
+                fontFamily: 'Mark',
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ),
         ),

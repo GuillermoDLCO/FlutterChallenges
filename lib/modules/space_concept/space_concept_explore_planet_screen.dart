@@ -6,7 +6,7 @@ import 'package:flutterchallenges/modules/space_concept/widgets/pick_to_option.d
 import 'package:flutterchallenges/modules/space_concept/widgets/top_bar.dart';
 
 class SpaceConceptExplorePlanetScreen extends StatelessWidget {
-  const SpaceConceptExplorePlanetScreen({Key? key}) : super(key: key);
+  const SpaceConceptExplorePlanetScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -29,9 +29,7 @@ class SpaceConceptExplorePlanetScreen extends StatelessWidget {
 }
 
 class _ExploreBody extends StatelessWidget {
-  const _ExploreBody({
-    Key? key,
-  }) : super(key: key);
+  const _ExploreBody();
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +37,8 @@ class _ExploreBody extends StatelessWidget {
       alignment: Alignment.topCenter,
       decoration: const BoxDecoration(
         image: DecorationImage(
-          image: AssetImage('assets/space_concept/explore_screen_background.png'),
+          image:
+              AssetImage('assets/space_concept/explore_screen_background.png'),
           fit: BoxFit.fill,
         ),
       ),
@@ -53,7 +52,10 @@ class _ExploreBody extends StatelessWidget {
             GestureDetector(
               onTap: () => Navigator.of(context).pop(),
               child: Padding(
-                padding: EdgeInsets.only(left: MediaQuery.of(context).size.width * .1, bottom: 30.0),
+                padding: EdgeInsets.only(
+                  left: MediaQuery.of(context).size.width * .1,
+                  bottom: 30,
+                ),
                 child: SvgPicture.asset('assets/space_concept/arrow_back.svg'),
               ),
             ),
@@ -65,9 +67,9 @@ class _ExploreBody extends StatelessWidget {
                     child: Stack(
                       clipBehavior: Clip.none,
                       alignment: Alignment.bottomCenter,
-                      children: [
-                        const _Atmosphere(),
-                        const _PlanetMediaItem(),
+                      children: const [
+                        _Atmosphere(),
+                        _PlanetMediaItem(),
                       ],
                     ),
                   ),
@@ -83,31 +85,43 @@ class _ExploreBody extends StatelessWidget {
 }
 
 class _ExploreInformation extends StatelessWidget {
-  const _ExploreInformation({
-    Key? key,
-  }) : super(key: key);
+  const _ExploreInformation();
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width * .1, vertical: 10.0),
+      padding: EdgeInsets.symmetric(
+        horizontal: MediaQuery.of(context).size.width * .1,
+        vertical: 10,
+      ),
       child: Column(
         children: [
           Row(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               PickToExplore(number: 3, radius: 12, action: () {}),
-              const SizedBox(width: 10.0),
+              const SizedBox(width: 10),
               const Text(
                 'Earth',
-                style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold, fontFamily: 'Mark', color: Colors.white, height: 0.9),
+                style: TextStyle(
+                  fontSize: 35,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: 'Mark',
+                  color: Colors.white,
+                  height: 0.9,
+                ),
               ),
             ],
           ),
           const SizedBox(height: 15),
           const Text(
-            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Habitant sem ut sit fames in adipiscing. Ac magna donec egestas habitant.',
-            style: TextStyle(fontSize: 12, fontFamily: 'Mark', color: Colors.white),
+            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Habitant'
+            ' sem ut sit fames in adipiscing. Ac magna donec egestas habitant.',
+            style: TextStyle(
+              fontSize: 12,
+              fontFamily: 'Mark',
+              color: Colors.white,
+            ),
           ),
         ],
       ),
@@ -116,9 +130,7 @@ class _ExploreInformation extends StatelessWidget {
 }
 
 class _Atmosphere extends StatelessWidget {
-  const _Atmosphere({
-    Key? key,
-  }) : super(key: key);
+  const _Atmosphere();
 
   @override
   Widget build(BuildContext context) {
@@ -127,7 +139,10 @@ class _Atmosphere extends StatelessWidget {
       maxWidth: MediaQuery.of(context).size.width * 2,
       child: Container(
         margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * .7),
-        decoration: BoxDecoration(shape: BoxShape.circle, border: Border.all(color: Colors.white, width: .3)),
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          border: Border.all(color: Colors.white, width: .3),
+        ),
         width: MediaQuery.of(context).size.width * 2,
       ),
     );
@@ -135,9 +150,7 @@ class _Atmosphere extends StatelessWidget {
 }
 
 class _PlanetMediaItem extends StatelessWidget {
-  const _PlanetMediaItem({
-    Key? key,
-  }) : super(key: key);
+  const _PlanetMediaItem();
 
   @override
   Widget build(BuildContext context) {
